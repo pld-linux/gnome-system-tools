@@ -1,11 +1,13 @@
+#TODO
+# think about split devel subpackage
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.25.0
+Version:	0.26.0
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.25/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.26/%{name}-%{version}.tar.bz2
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.2.0
 BuildRequires:	libglade2-devel 
@@ -71,3 +73,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/X11/sysconfig/*.desktop
 %{_datadir}/%{name}
 %{_sysconfdir}/gconf/schemas/%{name}.*
+%{_pkgconfigdir}/*.pc
