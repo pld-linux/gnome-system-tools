@@ -1,4 +1,5 @@
 Summary:	GNOME System Tools
+Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	0.24.0
 Release:	1
@@ -6,18 +7,28 @@ License:	LGPL
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.24/%{name}-%{version}.tar.bz2
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	libgnomeui-devel >= 2.0.0
-BuildRequires:	libglade2-devel 
-BuildRequires:	libxml2-devel >= 2.4.12
 BuildRequires:	GConf2-devel >= 2.2.0
+BuildRequires:	libglade2-devel 
+BuildRequires:	libgnomeui-devel >= 2.0.0
+BuildRequires:	libxml2-devel >= 2.4.12
 BuildRequires:	vte-devel >= 0.10.20
+Requires(post):	GConf2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
 %description
 The GST are a fully integrated set of tools aimed to make easy the job
 that means the computer administration on an UNIX or Linux system.
 They're thought to help from the new Linux or UNIX user to the system
 administrators. The GNOME System Tools are free software, licensed
 under the terms of the GNU General Public License.
+
+%description -l pl
+GST (GNOME System Tools) to w pe³ni zintegrowany zestaw narzêdzi,
+których celem jest u³atwienie prac administracyjnych pod systemem
+uniksowym lub linuksowym. S± pomy¶lane tak, aby pomóc nowym
+u¿ytkownikom Linuksa lub Uniksa w administrowaniu systemem. GNOME
+System Tools to wolnodostêpne oprogramowanie, licencjonowane na
+warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
