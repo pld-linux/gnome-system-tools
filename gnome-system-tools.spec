@@ -3,20 +3,23 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.32.0
+Version:	0.33.0
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.32/%{name}-%{version}.tar.bz2
-# Source0-md5:	d916a4c03f7c922b5ec906bfdc1694ac
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.33/%{name}-%{version}.tar.bz2
+# Source0-md5:	08efc3dff61a7a988bc2f8f5da67f4b8
+Patch0:		%{name}-locale-names.patch
+Patch1:		%{name}-CommonMakefile.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	GConf2-devel >= 2.4.0.1
+BuildRequires:	GConf2-devel >= 2.6.1
 BuildRequires:	cracklib-devel
 BuildRequires:	gnome-common >= 2.4.0
-BuildRequires:	libglade2-devel >= 2.0.1
-BuildRequires:	libgnomeui-devel >= 2.4.0.1
+BuildRequires:	libglade2-devel >= 1:2.4.0
+BuildRequires:	libgnomeui-devel >= 2.6.1
+BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
 Requires(post):	GConf2
 Requires:	/etc/pld-release
@@ -40,8 +43,20 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
+
+mv po/{no,nb}.po
+mv backends/po/{no,nb}.po
 
 %build
+cd backends
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+cd ..
+
+%{__libtoolize}
 %{__aclocal} -I %{_aclocaldir}/gnome2-macros
 %{__autoconf}
 %{__automake}
