@@ -6,7 +6,7 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/boot/boot.desktop.in.in gnome-syst
  Terminal=false
  Type=Application
 -Categories=Application;System;
-+Categories=GTK;GNOME;SystemSetup;
++Categories=GTK;GNOME;System;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=boot-admin
@@ -18,7 +18,7 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/disks/disks.desktop.in.in gnome-sy
  Terminal=0
  Type=Application
 -Categories=Application;System;
-+Categories=GTK;GNOME;SystemSetup;
++Categories=GTK;GNOME;System;
  StartupNotify=true
 diff -aurN gnome-system-tools-0.91.0.orig/src/network/network.desktop.in.in gnome-system-tools-0.91.0/src/network/network.desktop.in.in
 --- gnome-system-tools-0.91.0.orig/src/network/network.desktop.in.in	2003-12-12 22:32:11.000000000 +0100
@@ -28,7 +28,7 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/network/network.desktop.in.in gnom
  Terminal=false
  Type=Application
 -Categories=Application;System;
-+Categories=GTK;GNOME;SystemSetup;
++Categories=GTK;GNOME;System;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=network-admin
@@ -40,7 +40,7 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/services/services.desktop.in.in gn
  Terminal=false
  Type=Application
 -Categories=Application;System;
-+Categories=GTK;GNOME;SystemSetup;
++Categories=GTK;GNOME;System;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=runlevel-admin
@@ -52,7 +52,7 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/time/time.desktop.in.in gnome-syst
  Terminal=false
  Type=Application
 -Categories=Application;System;
-+Categories=GTK;GNOME;SystemSetup;
++Categories=GTK;GNOME;System;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=time-admin
@@ -64,7 +64,7 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/users/users.desktop.in.in gnome-sy
  Terminal=false
  Type=Application
 -Categories=Application;System;
-+Categories=GTK;GNOME;SystemSetup;
++Categories=GTK;GNOME;System;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=users-admin
