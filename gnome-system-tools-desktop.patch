@@ -2,11 +2,11 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/boot/boot.desktop.in.in gnome-syst
 --- gnome-system-tools-0.91.0.orig/src/boot/boot.desktop.in.in	2003-12-12 22:32:10.000000000 +0100
 +++ gnome-system-tools-0.91.0/src/boot/boot.desktop.in.in	2004-08-24 14:47:52.132773520 +0200
 @@ -5,7 +5,7 @@
- Icon=
+ Icon=@pixmapsdir@/boot.png
  Terminal=false
  Type=Application
--Categories=Application;System;
-+Categories=GTK;GNOME;System;
+-Categories=Application;System;Settings
++Categories=GTK;GNOME;System;Settings;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=boot-admin
@@ -14,21 +14,23 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/disks/disks.desktop.in.in gnome-sy
 --- gnome-system-tools-0.91.0.orig/src/disks/disks.desktop.in.in	2003-12-22 00:43:06.000000000 +0100
 +++ gnome-system-tools-0.91.0/src/disks/disks.desktop.in.in	2004-08-24 14:47:52.180766224 +0200
 @@ -5,5 +5,5 @@
- Icon=
- Terminal=0
+ Icon=@pixmapsdir@/disks.png
+ Terminal=false
  Type=Application
--Categories=Application;System;
-+Categories=GTK;GNOME;System;
- StartupNotify=true
+-Categories=Application;System;Settings
++Categories=GTK;GNOME;System;Settings;
+ X-GNOME-Bugzilla-Bugzilla=GNOME
+ X-GNOME-Bugzilla-Product=gnome-system-tools
+ X-GNOME-Bugzilla-Component=disks-admin
 diff -aurN gnome-system-tools-0.91.0.orig/src/network/network.desktop.in.in gnome-system-tools-0.91.0/src/network/network.desktop.in.in
 --- gnome-system-tools-0.91.0.orig/src/network/network.desktop.in.in	2003-12-12 22:32:11.000000000 +0100
 +++ gnome-system-tools-0.91.0/src/network/network.desktop.in.in	2004-08-24 14:47:52.228758928 +0200
 @@ -5,7 +5,7 @@
- Icon=
+ Icon=@pixmapsdir@/network.png
  Terminal=false
  Type=Application
--Categories=Application;System;
-+Categories=GTK;GNOME;System;
+-Categories=Application;System;Settings
++Categories=GTK;GNOME;System;Settings;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=network-admin
@@ -36,11 +38,11 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/services/services.desktop.in.in gn
 --- gnome-system-tools-0.91.0.orig/src/services/services.desktop.in.in	2003-12-12 22:32:11.000000000 +0100
 +++ gnome-system-tools-0.91.0/src/services/services.desktop.in.in	2004-08-24 14:47:52.276751632 +0200
 @@ -5,7 +5,7 @@
- Icon=
+ Icon=@pixmapsdir@/services.png
  Terminal=false
  Type=Application
--Categories=Application;System;
-+Categories=GTK;GNOME;System;
+-Categories=Application;System;Settings
++Categories=GTK;GNOME;System;Settings;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=runlevel-admin
@@ -48,11 +50,11 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/time/time.desktop.in.in gnome-syst
 --- gnome-system-tools-0.91.0.orig/src/time/time.desktop.in.in	2003-12-12 22:32:12.000000000 +0100
 +++ gnome-system-tools-0.91.0/src/time/time.desktop.in.in	2004-08-24 14:47:52.325744184 +0200
 @@ -5,7 +5,7 @@
- Icon=
+ Icon=@pixmapsdir@/time.png
  Terminal=false
  Type=Application
--Categories=Application;System;
-+Categories=GTK;GNOME;System;
+-Categories=Application;System;Settings
++Categories=GTK;GNOME;System;Settings;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=time-admin
@@ -60,11 +62,11 @@ diff -aurN gnome-system-tools-0.91.0.orig/src/users/users.desktop.in.in gnome-sy
 --- gnome-system-tools-0.91.0.orig/src/users/users.desktop.in.in	2003-12-12 22:32:13.000000000 +0100
 +++ gnome-system-tools-0.91.0/src/users/users.desktop.in.in	2004-08-24 14:47:48.466330904 +0200
 @@ -5,7 +5,7 @@
- Icon=
+ Icon=@pixmapsdir@/users.png
  Terminal=false
  Type=Application
--Categories=Application;System;
-+Categories=GTK;GNOME;System;
+-Categories=Application;System;Settings
++Categories=GTK;GNOME;System;Settings;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=users-admin
