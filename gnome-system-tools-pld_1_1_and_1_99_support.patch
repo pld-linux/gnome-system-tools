@@ -1,0 +1,230 @@
+diff -urN aa/gnome-system-tools-0.31.1/backends/network-conf.in gnome-system-tools-0.31.1/backends/network-conf.in
+--- aa/gnome-system-tools-0.31.1/backends/network-conf.in	2004-01-07 01:51:32.000000000 +0100
++++ gnome-system-tools-0.31.1/backends/network-conf.in	2004-01-08 14:52:37.158828712 +0100
+@@ -8,7 +8,7 @@
+ # Authors: Hans Petter Jansson <hpj@ximian.com>
+ #          Michael Vogt <mvo@debian.org> (Debian Support)
+ #          Arturo Espinosa <arturo@ximian.com>
+-#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
++#          Grzegorz Golawski <grzegol@pld-linux.org> (PLD Support)
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -72,7 +72,8 @@
+               "openna-1.0",              
+               "mandrake-7.1", "mandrake-7.2", "mandrake-9.0", "mandrake-9.1", "mandrake-9.2",
+               "debian-2.2", "debian-3.0", "debian-sarge",              
+-              "suse-7.0", "turbolinux-7.0", "pld-1.0", "fedora-1",
++              "suse-7.0", "turbolinux-7.0", "fedora-1",
++              "pld-1.0", "pld-1.1", "pld-1.99",
+               "slackware-9.1.0");
+ 
+ $description =<<"end_of_description;";
+diff -urN aa/gnome-system-tools-0.31.1/backends/network.pl.in gnome-system-tools-0.31.1/backends/network.pl.in
+--- aa/gnome-system-tools-0.31.1/backends/network.pl.in	2004-01-07 01:51:32.000000000 +0100
++++ gnome-system-tools-0.31.1/backends/network.pl.in	2004-01-08 14:53:11.998532272 +0100
+@@ -9,7 +9,7 @@
+ #          Arturo Espinosa <arturo@ximian.com>
+ #          Michael Vogt <mvo@debian.org> - Debian 2.[2|3] support.
+ #          David Lee Ludwig <davidl@wpi.edu> - Debian 2.[2|3] support.
+-#          Grzegorz Golawski <grzegol@pld.org.pl> - PLD support
++#          Grzegorz Golawski <grzegol@pld-linux.org> - PLD support
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -193,6 +193,8 @@
+        "mandrake-9.2" => "debian-2.2",
+        "suse-7.0"     => "debian-2.2", # FIXME: assumed that only redhat distros use -b.
+        "pld-1.0"      => "redhat-6.2",
++       "pld-1.1"      => "redhat-6.2",
++       "pld-1.99"     => "redhat-6.2",
+        "fedora-1"     => "redhat-6.2",
+        "slackware-9.1.0" => "redhat-6.2"
+        );
+@@ -1140,6 +1142,8 @@
+     "suse-7.0"     => \&gst_network_suse70_get_file,
+ 	  "turbolinux-7.0"   => \&gst_network_rh62_get_file,
+     "pld-1.0"      => \&gst_network_pld10_get_file,
++    "pld-1.1"      => \&gst_network_pld10_get_file,
++    "pld-1.99"     => \&gst_network_pld10_get_file,
+     "fedora-1"     => \&gst_network_rh72_get_file,
+     "slackware-9.1.0" => \&gst_network_slackware91_get_file,
+ 	  );
+@@ -2275,6 +2279,8 @@
+     "suse-7.0"     => "",
+ 	  "turbolinux-7.0"   => "lo",
+     "pld-1.0"      => "lo",
++    "pld-1.1"      => "lo",
++    "pld-1.99"     => "lo",
+     "fedora-1"     => "",
+     "slackware-9.1.0" => ""
+ 	  );
+@@ -2382,6 +2388,8 @@
+     "suse-7.0"     => "suse-7.0",
+ 	  "turbolinux-7.0"   => "redhat-7.0",
+     "pld-1.0"      =>  "pld-1.0",
++    "pld-1.1"      =>  "pld-1.0",
++    "pld-1.99"     =>  "pld-1.0",
+     "fedora-1"     =>  "redhat-7.2",
+     "slackware-9.1.0" => "slackware-9.1.0"
+ 	  );
+@@ -2683,6 +2691,8 @@
+     "suse-7.0"     => "suse-7.0",
+ 	  "turbolinux-7.0"   => "redhat-6.2",
+     "pld-1.0"      => "pld-1.0",
++    "pld-1.1"      => "pld-1.0",
++    "pld-1.99"     => "pld-1.0",
+     "fedora-1"     => "redhat-7.2",
+     "slackware-9.1.0" => "slackware-9.1.0"
+ 	  );
+@@ -3139,6 +3149,8 @@
+     "suse-7.0"     => "suse-7.0",
+ 	  "turbolinux-7.0"   => "redhat-7.0",
+     "pld-1.0"      => "pld-1.0",
++    "pld-1.1"      => "pld-1.0",
++    "pld-1.99"     => "pld-1.0",
+     "fedora-1"     => "redhat-7.2",
+     "slackware-9.1.0" => "slackware-9.1.0"
+ 	  );
+@@ -3429,6 +3441,8 @@
+     "suse-7.0"     => "suse-7.0",
+ 	  "turbolinux-7.0"   => "redhat-6.2",
+     "pld-1.0"      => "pld-1.0",
++    "pld-1.1"      => "pld-1.0",
++    "pld-1.99"     => "pld-1.0",
+     "fedora-1"     => "redhat-7.2",
+     "slackware-9.1.0" => "slackware-9.1.0"
+ 	  );
+diff -urN aa/gnome-system-tools-0.31.1/backends/platform.pl.in gnome-system-tools-0.31.1/backends/platform.pl.in
+--- aa/gnome-system-tools-0.31.1/backends/platform.pl.in	2003-12-28 23:25:46.000000000 +0100
++++ gnome-system-tools-0.31.1/backends/platform.pl.in	2004-01-08 14:54:20.523114952 +0100
+@@ -67,6 +67,8 @@
+   "freebsd-5"       => "FreeBSD 5",
+   "gentoo"          => "Gentoo Linux",
+   "pld-1.0"         => "PLD 1.0 Ra",
++	"pld-1.1"         => "PLD 1.1 Ra",
++	"pld-1.99"        => "PLD 1.99 Ac-pre",
+   "fedora-1"        => "Fedora Core 1 (Yarrow)"
+ };
+   
+diff -urN aa/gnome-system-tools-0.31.1/backends/service.pl.in gnome-system-tools-0.31.1/backends/service.pl.in
+--- aa/gnome-system-tools-0.31.1/backends/service.pl.in	2004-01-07 01:51:33.000000000 +0100
++++ gnome-system-tools-0.31.1/backends/service.pl.in	2004-01-08 14:50:01.099553328 +0100
+@@ -75,6 +75,8 @@
+        "turbolinux-7.0"   => ["$gst_prefix/etc/rc.d", "$gst_prefix/etc/rc.d/init.d", "../init.d"],
+ 
+        "pld-1.0"      => ["$gst_prefix/etc/rc.d", "$gst_prefix/etc/rc.d/init.d", "../init.d"],
++       "pld-1.1"      => ["$gst_prefix/etc/rc.d", "$gst_prefix/etc/rc.d/init.d", "../init.d"],
++       "pld-1.99"     => ["$gst_prefix/etc/rc.d", "$gst_prefix/etc/rc.d/init.d", "../init.d"],
+ 
+        "fedora-1"     => ["$gst_prefix/etc/rc.d", "$gst_prefix/etc/rc.d/init.d", "../init.d"]
+        );
+@@ -118,6 +120,8 @@
+        "turbolinux-7.0" => [3, 5],
+ 
+        "pld-1.0"        => [3, 5],
++       "pld-1.1"        => [3, 5],
++       "pld-1.99"       => [3, 5],
+ 
+        "fedora-1"       => [3, 5]
+        );
+@@ -159,6 +163,8 @@
+      
+      "turbolinux-7.0" => "redhat-5.2",
+      "pld-1.0"        => "redhat-5.2",
++     "pld-1.1"        => "redhat-5.2",
++     "pld-1.99"       => "redhat-5.2",
+      "fedora-1"       => "redhat-5.2",
+ 
+      "slackware-9.1.0" => "slackware-9.1.0"
+diff -urN aa/gnome-system-tools-0.31.1/backends/services-conf.in gnome-system-tools-0.31.1/backends/services-conf.in
+--- aa/gnome-system-tools-0.31.1/backends/services-conf.in	2004-01-07 01:51:33.000000000 +0100
++++ gnome-system-tools-0.31.1/backends/services-conf.in	2004-01-08 14:50:48.730312352 +0100
+@@ -6,7 +6,7 @@
+ # Copyright (C) 2002 Ximian, Inc.
+ #
+ # Authors: Carlos Garnacho Parro <garparr@teleline.es>
+-#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
++#          Grzegorz Golawski <grzegol@pld-linux.org> (PLD Support)
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -50,7 +50,8 @@
+ 
+               "debian-2.2", "debian-3.0", "debian-sarge",
+ 
+-              "suse-7.0", "turbolinux-7.0", "pld-1.0", "fedora-1",
++              "suse-7.0", "turbolinux-7.0", "fedora-1",
++              "pld-1.0", "pld-1.1", "pld-1.99",
+               "slackware-9.1.0");
+ 
+ $description =<<"end_of_description;";
+diff -urN aa/gnome-system-tools-0.31.1/backends/time-conf.in gnome-system-tools-0.31.1/backends/time-conf.in
+--- aa/gnome-system-tools-0.31.1/backends/time-conf.in	2004-01-07 01:51:33.000000000 +0100
++++ gnome-system-tools-0.31.1/backends/time-conf.in	2004-01-08 14:51:43.055053736 +0100
+@@ -6,7 +6,7 @@
+ # Copyright (C) 2000-2001 Ximian, Inc.
+ #
+ # Authors: Hans Petter Jansson <hpj@ximian.com>
+-#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
++#          Grzegorz Golawski <grzegol@pld-linux.org> (PLD Support)
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -67,7 +67,7 @@
+               "debian-2.2", "debian-3.0", "debian-sarge",
+               "suse-7.0", "turbolinux-7.0",
+               "slackware-8.0.0", "slackware-8.1", "slackware-9.0.0", "slackware-9.1.0",
+-              "gentoo", "pld-1.0", "fedora-1");
++              "gentoo", "pld-1.0", "pld-1.1", "pld-1.99", "fedora-1");
+ 
+ $description =<<"end_of_description;";
+        Configures your system clock, timezone and time server list.
+@@ -447,6 +447,8 @@
+    "gentoo"          => "redhat-7.0",
+ 
+    "pld-1.0"         => "pld-1.0",
++   "pld-1.1"         => "pld-1.0",
++   "pld-1.99"        => "pld-1.0",
+    "fedora-1"        => "redhat-7.0"
+    );
+ 
+@@ -606,6 +608,8 @@
+    "gentoo"          => "redhat-7.0",
+ 
+    "pld-1.0"         => "pld-1.0",
++   "pld-1.1"         => "pld-1.0",
++   "pld-1.99"        => "pld-1.0",
+    "fedora-1"        => "redhat-7.0"
+    );
+ 
+diff -urN aa/gnome-system-tools-0.31.1/backends/users-conf.in gnome-system-tools-0.31.1/backends/users-conf.in
+--- aa/gnome-system-tools-0.31.1/backends/users-conf.in	2004-01-07 01:51:33.000000000 +0100
++++ gnome-system-tools-0.31.1/backends/users-conf.in	2004-01-08 14:52:22.560048064 +0100
+@@ -8,7 +8,7 @@
+ # Authors: Hans Petter Jansson <hpj@ximian.com>,
+ #          Arturo Espinosa <arturo@ximian.com>,
+ #          Tambet Ingo <tambet@ximian.com>.
+-#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
++#          Grzegorz Golawski <grzegol@pld-linux.org> (PLD Support)
+ #
+ #
+ # This program is free software; you can redistribute it and/or modify
+@@ -77,7 +77,7 @@
+               "slackware-8.0.0", "slackware-8.1", "slackware-9.0.0", "slackware-9.1.0",
+               "freebsd-4", "freebsd-5",
+               "gentoo",
+-              "pld-1.0", "fedora-1");
++              "pld-1.0", "pld-1.1", "pld-1.99", "fedora-1");
+ 
+ $description =<<"end_of_description;";
+        Manages system users.
+@@ -240,6 +240,8 @@
+   'mandrake-9.1'    => $rh_logindefs_defaults,
+   'mandrake-9.2'    => $rh_logindefs_defaults,
+   'pld-1.0'         => $rh_logindefs_defaults,
++  'pld-1.1'         => $rh_logindefs_defaults,
++  'pld-1.99'        => $rh_logindefs_defaults,
+   'fedora-1'        => $rh_logindefs_defaults,
+   'debian-2.2'      => $rh_logindefs_defaults,
+   'debian-3.0'      => $rh_logindefs_defaults,
