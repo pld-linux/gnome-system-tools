@@ -2,7 +2,7 @@ Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	0.24.0
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.24/%{name}-%{version}.tar.bz2
@@ -59,8 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README AUTHORS HACKING NEWS ChangeLog
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_datadir}/setup-tool-backends/scripts/*
+%attr(755,root,root) %{_datadir}/setup-tool-backends/files/*
+%dir %{_datadir}/setup-tool-backends
+%dir %{_datadir}/setup-tool-backends/files
+%dir %{_datadir}/setup-tool-backends/scripts
 %{_datadir}/control-center-2.0/capplets/*.desktop
 %{_sysconfdir}/X11/sysconfig/*.desktop
 %{_datadir}/%{name}
-%{_datadir}/setup-tool-backends
 %{_sysconfdir}/gconf/schemas/%{name}.*
