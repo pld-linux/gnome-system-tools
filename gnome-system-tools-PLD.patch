@@ -1,45 +1,73 @@
 diff -urN aaa/gnome-system-tools-0.24.0/backends/boot-conf.in gnome-system-tools-0.24.0/backends/boot-conf.in
 --- aaa/gnome-system-tools-0.24.0/backends/boot-conf.in	Sat Mar  8 02:02:01 2003
-+++ gnome-system-tools-0.24.0/backends/boot-conf.in	Mon Apr 28 13:39:53 2003
-@@ -68,7 +68,7 @@
++++ gnome-system-tools-0.24.0/backends/boot-conf.in	Tue Apr 29 12:35:23 2003
+@@ -5,8 +5,9 @@
+ #
+ # Copyright (C) 2000-2001 Ximian, Inc.
+ #
+-# Authors: Tambet Ingo     <tambet@ximian.com>
+-#          Arturo Espinosa <arturo@ximian.com>
++# Authors: Tambet Ingo       <tambet@ximian.com>
++#          Arturo Espinosa   <arturo@ximian.com>
++#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -68,7 +69,7 @@
                
                "suse-7.0", "turbolinux-7.0",
  
 -              "slackware-9.0");
-+              "slackware-9.0", "pld");
++              "slackware-9.0", "pld-1.0");
  
  $description =<<"end_of_description;";
         Configures Boot manager (LILO and GRUB at the moment).
 diff -urN aaa/gnome-system-tools-0.24.0/backends/network-conf.in gnome-system-tools-0.24.0/backends/network-conf.in
 --- aaa/gnome-system-tools-0.24.0/backends/network-conf.in	Tue Jan 14 22:26:20 2003
-+++ gnome-system-tools-0.24.0/backends/network-conf.in	Mon Apr 28 14:09:30 2003
-@@ -73,7 +73,7 @@
++++ gnome-system-tools-0.24.0/backends/network-conf.in	Tue Apr 29 12:35:34 2003
+@@ -8,6 +8,7 @@
+ # Authors: Hans Petter Jansson <hpj@ximian.com>
+ #          Michael Vogt <mvo@debian.org> (Debian Support)
+ #          Arturo Espinosa <arturo@ximian.com>
++#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -73,7 +74,7 @@
                
                "debian-2.2", "debian-woody", "debian-sarge",
                
 -              "suse-7.0", "turbolinux-7.0");
-+              "suse-7.0", "turbolinux-7.0", "pld");
++              "suse-7.0", "turbolinux-7.0", "pld-1.0");
  
  $description =<<"end_of_description;";
         Configures all network parameters and interfaces.
 diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tools-0.24.0/backends/network.pl.in
 --- aaa/gnome-system-tools-0.24.0/backends/network.pl.in	Thu Feb  6 20:12:05 2003
-+++ gnome-system-tools-0.24.0/backends/network.pl.in	Mon Apr 28 22:06:11 2003
-@@ -142,7 +142,8 @@
++++ gnome-system-tools-0.24.0/backends/network.pl.in	Tue Apr 29 12:43:22 2003
+@@ -9,6 +9,7 @@
+ #          Arturo Espinosa <arturo@ximian.com>
+ #          Michael Vogt <mvo@debian.org> - Debian 2.[2|3] support.
+ #          David Lee Ludwig <davidl@wpi.edu> - Debian 2.[2|3] support.
++#          Grzegorz Golawski <grzegol@pld.org.pl> - PLD support
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -142,7 +143,8 @@
         "debian-sarge" => "debian-2.2",
         "mandrake-7.1" => "debian-2.2",
         "mandrake-7.2" => "debian-2.2",
 -       "suse-7.0"     => "debian-2.2" # FIXME: assumed that only redhat distros use -b.
 +       "suse-7.0"     => "debian-2.2", # FIXME: assumed that only redhat distros use -b.
-+       "pld"          => "redhat-6.2"
++       "pld-1.0"      => "redhat-6.2"
         );
  
    return $cmd_map{$dist_map{$xst_dist}};
-@@ -576,6 +577,12 @@
+@@ -576,6 +578,12 @@
    return @ret;
  }
  
-+sub xst_network_sysconfig_pld_ifaces_get_existing
++sub xst_network_sysconfig_pld10_ifaces_get_existing
 +{
 +  return @{&xst_network_sysconfig_dir_ifaces_get_existing ("/etc/sysconfig/interfaces")};
 +}
@@ -48,11 +76,11 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
  sub xst_network_suse70_parse_iface_num
  {
    my ($file, $dev) = @_;
-@@ -998,6 +1005,25 @@
+@@ -998,6 +1006,25 @@
    return $i;
  }
  
-+sub xst_network_pld_get_file
++sub xst_network_pld10_get_file
 +{
 +  my ($iface) = @_;
 +  my ($pre, $i, $dev);
@@ -74,21 +102,21 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
  sub xst_network_get_file
  {
    my ($iface) = @_;
-@@ -1018,7 +1044,8 @@
+@@ -1018,7 +1045,8 @@
      "debian-woody" => \&xst_network_deb22_get_file,
      "debian-sarge" => \&xst_network_deb22_get_file,
      "suse-7.0"     => \&xst_network_suse70_get_file,
 -	  "turbolinux-7.0"   => \&xst_network_rh62_get_file
 +	  "turbolinux-7.0"   => \&xst_network_rh62_get_file,
-+    "pld"          => \&xst_network_pld_get_file
++    "pld-1.0"      => \&xst_network_pld10_get_file
  	  );
  
    $proc = $dist_map{$xst_dist};
-@@ -1366,6 +1393,26 @@
+@@ -1366,6 +1394,26 @@
    &xst_replace_sh ($file, "IFCONFIG_$dev", "");
  }
  
-+sub xst_network_pld_interface_delete
++sub xst_network_pld10_interface_delete
 +{
 +  my ($old_hash) = @_;
 +  my $dev = $$old_hash{"file"};
@@ -111,14 +139,14 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
  sub xst_network_interface_changed
  {
      my ($iface, $iface_old) = @_;
-@@ -1771,6 +1818,43 @@
+@@ -1771,6 +1819,43 @@
    return &xst_network_suse70_replace_iface_sh ($file, $iface, "IFCONFIG", $val);
  }
  
-+sub xst_network_pld_parse_bootproto
++sub xst_network_pld10_parse_bootproto
 +{
 +  my ($file, $key) = @_;
-+  my %pld_to_proto_name =
++  my %pld10_to_proto_name =
 +	 (
 +    "bootp" => "bootp",
 +	  "dhcp"  => "dhcp",
@@ -129,18 +157,18 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
 +
 +  $ret = &xst_parse_sh ($file, $key);
 +  
-+  if (!exists $pld_to_proto_name{$ret})
++  if (!exists $pld10_to_proto_name{$ret})
 +  {
 +    &xst_report ("network_bootproto_unsup", $file, $ret);
 +    $ret = "none";
 +  }
-+  return $pld_to_proto_name{$ret};
++  return $pld10_to_proto_name{$ret};
 +}
 +
-+sub xst_network_pld_replace_bootproto
++sub xst_network_pld10_replace_bootproto
 +{
 +  my ($file, $key, $value) = @_;
-+  my %proto_name_to_pld =
++  my %proto_name_to_pld10 =
 +	 (
 +    "bootp"    => "bootp",
 +	  "dhcp"     => "dhcp",
@@ -148,19 +176,19 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
 +	  "none"     => "none"
 +	  );
 +
-+  return &xst_replace_sh ($file, $key, $proto_name_to_pld{$value});
++  return &xst_replace_sh ($file, $key, $proto_name_to_pld10{$value});
 +}
 +
 +
  sub xst_network_pump_iface_supported
  {
    my ($iface) = @_;
-@@ -1912,6 +1996,81 @@
+@@ -1912,6 +1997,81 @@
    return &xst_file_buffer_save ($buff, $file);
  }
  
 +# Return IP address or netmask, depending on $what
-+sub xst_network_pld_get_ipaddr
++sub xst_network_pld10_get_ipaddr
 +{
 +  my ($file, $key, $what) = @_;
 +  my ($ipaddr, $netmask, $ret, $i);
@@ -198,7 +226,7 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
 +}
 +
 +# Writes IP address or netmask, depending in $what, to $file
-+sub xst_network_pld_set_ipaddr
++sub xst_network_pld10_set_ipaddr
 +{
 +  my ($file, $key, $what, $value) = @_;
 +  my %prefixes =
@@ -237,33 +265,33 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
  # Set dist_map for your distro to "" if you don't want
  # loopback ensuring. See suse-7.0 entry for example.
  sub xst_network_ensure_loopback_interface
-@@ -1934,7 +2093,8 @@
+@@ -1934,7 +2094,8 @@
      "debian-woody" => "lo",
      "debian-sarge" => "lo",
      "suse-7.0"     => "",
 -	  "turbolinux-7.0"   => "lo"
 +	  "turbolinux-7.0"   => "lo",
-+    "pld"          => "lo"
++    "pld-1.0"      => "lo"
  	  );
  
    $dev = $dist_map {$xst_dist};
-@@ -2033,7 +2193,8 @@
+@@ -2033,7 +2194,8 @@
      "debian-woody" => "debian-2.2",
      "debian-sarge" => "debian-2.2",
      "suse-7.0"     => "suse-7.0",
 -	  "turbolinux-7.0"   => "redhat-7.0"
 +	  "turbolinux-7.0"   => "redhat-7.0",
-+    "pld"          =>  "pld"
++    "pld-1.0"      =>  "pld-1.0"
  	  );
  
    my %dist_tables =
-@@ -2227,6 +2388,42 @@
+@@ -2227,6 +2389,42 @@
  		    [ "interface_tmp", \&xst_network_interfaces_get ],
          [ "interface",     \&xst_network_suse70_get_ppp,         "%dialing%", "%interface_tmp%" ],
  		    ]
 +			 },
 +
-+	  "pld" =>
++	  "pld-1.0" =>
 +	  {
 +	    fn =>
 +	    {
@@ -300,25 +328,25 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
  			 }
  
  	  );
-@@ -2256,7 +2453,8 @@
+@@ -2256,7 +2454,8 @@
      "debian-woody" => "debian-woody",
      "debian-sarge" => "debian-woody",
      "suse-7.0"     => "suse-7.0",
 -	  "turbolinux-7.0"   => "redhat-6.2"
 +	  "turbolinux-7.0"   => "redhat-6.2",
-+    "pld"          => "pld"
++    "pld-1.0"      => "pld-1.0"
  	  );
    
    my %dist_tables =
-@@ -2497,6 +2695,56 @@
+@@ -2497,6 +2696,56 @@
                                                                  \&xst_network_suse70_active_interfaces_get ],
             [ "enabled",            \&xst_parse_trivial,                   0 ]
             ]
 +             },
 +
-+	  "pld" =>
++	  "pld-1.0" =>
 +	  {
-+	    ifaces_get => \&xst_network_sysconfig_pld_ifaces_get_existing,
++	    ifaces_get => \&xst_network_sysconfig_pld10_ifaces_get_existing,
 +	    fn =>
 +	    {
 +        IFCFG => "/etc/sysconfig/interfaces/ifcfg-#iface#",
@@ -330,13 +358,13 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
 +      },
 +	    table =>
 +          [
-+           [ "bootproto",          \&xst_network_pld_parse_bootproto, IFCFG, BOOTPROTO ],
++           [ "bootproto",          \&xst_network_pld10_parse_bootproto, IFCFG, BOOTPROTO ],
 +           [ "auto",               \&xst_parse_sh_bool, IFCFG, ONBOOT ],
 +           [ "user",               \&xst_parse_sh_bool, IFCFG, USERCTL ],
 +           [ "name",               \&xst_parse_sh,      IFCFG, DEVICE ],
 +           [ "dev",                \&xst_parse_sh,      IFCFG, DEVICE ],
-+           [ "address",            \&xst_network_pld_get_ipaddr, IFCFG, IPADDR, "address" ],
-+           [ "netmask",            \&xst_network_pld_get_ipaddr, IFCFG, IPADDR, "netmask" ],
++           [ "address",            \&xst_network_pld10_get_ipaddr, IFCFG, IPADDR, "address" ],
++           [ "netmask",            \&xst_network_pld10_get_ipaddr, IFCFG, IPADDR, "netmask" ],
 +#           [ "broadcast",          \&xst_parse_sh,      IFCFG, BROADCAST ],
 +#           [ "network",            \&xst_parse_sh,      IFCFG, NETWORK ],
 +           [ "gateway",            \&xst_parse_sh,      IFCFG, GATEWAY ],
@@ -367,24 +395,24 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
               }
  	  );
    
-@@ -2525,7 +2773,8 @@
+@@ -2525,7 +2774,8 @@
      "debian-woody" => "debian-2.2",
      "debian-sarge" => "debian-2.2",
      "suse-7.0"     => "suse-7.0",
 -	  "turbolinux-7.0"   => "redhat-7.0"
 +	  "turbolinux-7.0"   => "redhat-7.0",
-+    "pld"          => "pld"
++    "pld-1.0"      => "pld-1.0"
  	  );
  
    my %dist_tables =
-@@ -2713,7 +2962,43 @@
+@@ -2713,7 +2963,43 @@
          [ "interface",     \&xst_network_interfaces_set,	 OLD_HASH ],
          [ "_always_",      \&xst_file_run,                 SUSECONFIG ],
  		    ]
 -			 }
 +			 },
 +
-+	  "pld" =>
++	  "pld-1.0" =>
 +	  {
 +	    fn =>
 +	    {
@@ -422,27 +450,27 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
  	  );
    
    my $dist = $dist_map{$xst_dist};
-@@ -2741,7 +3026,8 @@
+@@ -2741,7 +3027,8 @@
      "debian-woody" => "debian-woody",
      "debian-sarge" => "debian-woody",
      "suse-7.0"     => "suse-7.0",
 -	  "turbolinux-7.0"   => "redhat-6.2"
 +	  "turbolinux-7.0"   => "redhat-6.2",
-+    "pld"          => "pld"
++    "pld-1.0"      => "pld-1.0"
  	  );
  
    my %dist_tables =
-@@ -2968,7 +3254,54 @@
+@@ -2968,7 +3255,54 @@
             [ "remote_address",     \&xst_network_suse70_set_ifconfig_arg,   [IFCFG, IFACE], pointopoint ],
             [ "update_dns",         \&xst_replace_kw,                        PPP_OPTIONS, "usepeerdns" ]
        ]
 +    },
 +
-+    "pld" =>
++    "pld-1.0" =>
 +	  {
 +      iface_set    => \&xst_network_rh62_interface_activate,
-+      iface_delete => \&xst_network_pld_interface_delete,
-+      ifaces_get   => \&xst_network_sysconfig_pld_ifaces_get_existing,
++      iface_delete => \&xst_network_pld10_interface_delete,
++      ifaces_get   => \&xst_network_sysconfig_pld10_ifaces_get_existing,
 +      fn =>
 +	    {
 +        IFCFG  => "/etc/sysconfig/interfaces/ifcfg-#iface#",
@@ -453,13 +481,13 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
 +      },
 +      table =>
 +       [
-+        [ "bootproto",          \&xst_network_pld_replace_bootproto, IFCFG, BOOTPROTO ],
++        [ "bootproto",          \&xst_network_pld10_replace_bootproto, IFCFG, BOOTPROTO ],
 +        [ "auto",               \&xst_replace_sh_bool, IFCFG, ONBOOT ],
 +        [ "user",               \&xst_replace_sh_bool, IFCFG, USERCTL ],
 +#        [ "name",               \&xst_replace_sh,      IFCFG, NAME ],
 +        [ "dev",                \&xst_replace_sh,      IFCFG, DEVICE ],
-+        [ "address",            \&xst_network_pld_set_ipaddr, IFCFG, IPADDR, "address" ],
-+        [ "netmask",            \&xst_network_pld_set_ipaddr, IFCFG, IPADDR, "netmask" ],
++        [ "address",            \&xst_network_pld10_set_ipaddr, IFCFG, IPADDR, "address" ],
++        [ "netmask",            \&xst_network_pld10_set_ipaddr, IFCFG, IPADDR, "netmask" ],
 +#        [ "broadcast",          \&xst_replace_sh,      IFCFG, BROADCAST ],
 +#        [ "network",            \&xst_replace_sh,      IFCFG, NETWORK ],
 +        [ "gateway",            \&xst_replace_sh,      IFCFG, GATEWAY ],
@@ -489,14 +517,14 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tool
    my $dist = $dist_map{$xst_dist};
 diff -urN aaa/gnome-system-tools-0.24.0/backends/platform.pl.in gnome-system-tools-0.24.0/backends/platform.pl.in
 --- aaa/gnome-system-tools-0.24.0/backends/platform.pl.in	Tue Jan 14 22:33:55 2003
-+++ gnome-system-tools-0.24.0/backends/platform.pl.in	Sun Apr 27 20:32:07 2003
++++ gnome-system-tools-0.24.0/backends/platform.pl.in	Tue Apr 29 12:56:10 2003
 @@ -59,7 +59,8 @@
    "slackware-9.0"   => "Slackware 9.0",
    "freebsd-4"       => "FreeBSD 4",
    "freebsd-5"       => "FreeBSD 5",
 -  "gentoo"          => "Gentoo Linux"
 +  "gentoo"          => "Gentoo Linux",
-+  "pld"             => "PLD Linux Distribution"
++  "pld-1.0"         => "PLD 1.0 Ra"
  };
    
  sub check_lsb
@@ -508,13 +536,23 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/platform.pl.in gnome-system-too
  }
  
  sub check_linuxppc
-@@ -261,6 +263,13 @@
+@@ -261,6 +263,23 @@
    return -1;
  }
  
 +sub check_pld
 +{
-+  return "pld" if stat ("$xst_prefix/etc/pld-release");
++  open RELEASE, "$xst_prefix/etc/pld-release" or return -1;
++  while (<RELEASE>)
++  {
++    chomp;
++		if(/^([0-9.]+) PLD Linux/)
++    {
++      close RELEASE;
++      return "pld-$1";
++    }
++  }
++  close RELEASE;
 +  return -1;
 +}
 +
@@ -522,7 +560,7 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/platform.pl.in gnome-system-too
  sub xst_platform_guess
  {
    my ($tool) = @_;
-@@ -278,7 +287,7 @@
+@@ -278,7 +297,7 @@
      # Red Hat check must run after Mandrake
      "Linux" => [ \&check_lsb,      \&check_debian,   \&check_caldera, \&check_suse, 
                   \&check_mandrake, \&check_linuxppc, \&check_redhat,  \&check_turbolinux,
@@ -533,19 +571,27 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/platform.pl.in gnome-system-too
                 );
 diff -urN aaa/gnome-system-tools-0.24.0/backends/runlevel-conf.in gnome-system-tools-0.24.0/backends/runlevel-conf.in
 --- aaa/gnome-system-tools-0.24.0/backends/runlevel-conf.in	Tue Jan 14 22:26:20 2003
-+++ gnome-system-tools-0.24.0/backends/runlevel-conf.in	Sun Apr 27 22:05:54 2003
-@@ -48,7 +48,7 @@
++++ gnome-system-tools-0.24.0/backends/runlevel-conf.in	Tue Apr 29 12:43:26 2003
+@@ -6,6 +6,7 @@
+ # Copyright (C) 2002 Ximian, Inc.
+ #
+ # Authors: Carlos Garnacho Parro <garparr@teleline.es>
++#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -48,7 +49,7 @@
  
                "debian-2.2", "debian-woody", "debian-sarge",
  
 -              "suse-7.0", "turbolinux-7.0");
-+              "suse-7.0", "turbolinux-7.0", "pld");
++              "suse-7.0", "turbolinux-7.0", "pld-1.0");
  
  $description =<<"end_of_description;";
         Configures which services are to be started or stopped at which runlevels
 diff -urN aaa/gnome-system-tools-0.24.0/backends/service.pl.in gnome-system-tools-0.24.0/backends/service.pl.in
 --- aaa/gnome-system-tools-0.24.0/backends/service.pl.in	Tue Jan 14 22:26:20 2003
-+++ gnome-system-tools-0.24.0/backends/service.pl.in	Sun Apr 27 22:11:51 2003
++++ gnome-system-tools-0.24.0/backends/service.pl.in	Tue Apr 29 12:43:51 2003
 @@ -67,7 +67,9 @@
  
         "suse-7.0"     => ["/etc/rc.d", "/etc/rc.d", "../"],
@@ -553,7 +599,7 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/service.pl.in gnome-system-tool
 -       "turbolinux-7.0"   => ["/etc/rc.d", "/etc/rc.d/init.d", "../init.d"]
 +       "turbolinux-7.0"   => ["/etc/rc.d", "/etc/rc.d/init.d", "../init.d"],
 +
-+       "pld"          => ["/etc/rc.d", "/etc/rc.d/init.d", "../init.d"]
++       "pld-1.0"      => ["/etc/rc.d", "/etc/rc.d/init.d", "../init.d"]
         );
    my $res;
  
@@ -564,40 +610,48 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/service.pl.in gnome-system-tool
 -       "turbolinux-7.0" => [3, 5]
 +       "turbolinux-7.0" => [3, 5],
 +
-+       "pld"            => [3, 5]
++       "pld-1.0"        => [3, 5]
         );
    my $res;
  
 diff -urN aaa/gnome-system-tools-0.24.0/backends/time-conf.in gnome-system-tools-0.24.0/backends/time-conf.in
 --- aaa/gnome-system-tools-0.24.0/backends/time-conf.in	Tue Jan 14 22:26:20 2003
-+++ gnome-system-tools-0.24.0/backends/time-conf.in	Sun Apr 27 22:42:40 2003
-@@ -70,7 +70,7 @@
++++ gnome-system-tools-0.24.0/backends/time-conf.in	Tue Apr 29 12:44:04 2003
+@@ -6,6 +6,7 @@
+ # Copyright (C) 2000-2001 Ximian, Inc.
+ #
+ # Authors: Hans Petter Jansson <hpj@ximian.com>
++#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU Library General Public License as published
+@@ -70,7 +71,7 @@
  	      
                "slackware-8.0.0", "slackware-9.0",
  
 -              "gentoo");
-+              "gentoo", "pld");
++              "gentoo", "pld-1.0");
  
  $description =<<"end_of_description;";
         Configures your system clock, timezone and time server list.
-@@ -439,7 +439,9 @@
+@@ -439,7 +440,9 @@
     "slackware-8.0.0" => "debian-2.2",
     "slackware-9.0"   => "debian-2.2",
  
 -   "gentoo"          => "redhat-7.0"
 +   "gentoo"          => "redhat-7.0",
 +
-+   "pld"             => "pld"
++   "pld-1.0"         => "pld-1.0"
     );
  
    my %dist_tables =
-@@ -515,6 +517,24 @@
+@@ -515,6 +518,24 @@
                [ "sync_active",  \&xst_service_sysv_get_status, "xntpd" ],
                [ "ntpinstalled", \&xst_service_sysv_installed, "xntpd" ],
                ]
 +                },
 +
-+       "pld" =>
++       "pld-1.0" =>
 +       {
 +         fn =>
 +         {
@@ -616,24 +670,24 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/time-conf.in gnome-system-tools
                  }
         );
  
-@@ -551,7 +571,9 @@
+@@ -551,7 +572,9 @@
     "turbolinux-7.0"  => "redhat-7.0",
     
     "slackware-8.0.0" => "debian-2.2",
 -   "slackware-9.0"   => "debian-2.2"
 +   "slackware-9.0"   => "debian-2.2",
 +
-+   "pld"             => "pld"
++   "pld-1.0"         => "pld-1.0"
     );
  
    my %dist_tables =
-@@ -623,6 +645,22 @@
+@@ -623,6 +646,22 @@
                [ "sync",         \&xst_replace_join_all, NTP_CONF, "server", "[ \t]+" ],
                [ "sync_active",  \&xst_service_sysv_set_status, 90, "xntpd" ],
                ]
 +                },
 +
-+       "pld" =>
++       "pld-1.0" =>
 +       {
 +         fn =>
 +         {
@@ -652,22 +706,30 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/time-conf.in gnome-system-tools
  
 diff -urN aaa/gnome-system-tools-0.24.0/backends/users-conf.in gnome-system-tools-0.24.0/backends/users-conf.in
 --- aaa/gnome-system-tools-0.24.0/backends/users-conf.in	Tue Jan 14 22:26:20 2003
-+++ gnome-system-tools-0.24.0/backends/users-conf.in	Sun Apr 27 19:41:45 2003
-@@ -78,7 +78,8 @@
++++ gnome-system-tools-0.24.0/backends/users-conf.in	Tue Apr 29 12:44:09 2003
+@@ -8,6 +8,7 @@
+ # Authors: Hans Petter Jansson <hpj@ximian.com>,
+ #          Arturo Espinosa <arturo@ximian.com>,
+ #          Tambet Ingo <tambet@ximian.com>.
++#          Grzegorz Golawski <grzegol@pld.org.pl> (PLD Support)
+ #
+ #
+ # This program is free software; you can redistribute it and/or modify
+@@ -78,7 +79,8 @@
  
                "slackware-8.0.0", "slackware-9.0",
  
 -              "freebsd-4", "freebsd-5");
 +              "freebsd-4", "freebsd-5",
-+              "pld");
++              "pld-1.0");
  
  $description =<<"end_of_description;";
         Manages system users.
-@@ -229,6 +230,7 @@
+@@ -229,6 +231,7 @@
    'redhat-8.0'      => $rh_logindefs_defaults,
    'mandrake-7.1'    => $rh_logindefs_defaults,
    'mandrake-7.2'    => $rh_logindefs_defaults,
-+  'pld'             => $rh_logindefs_defaults,
++  'pld-1.0'         => $rh_logindefs_defaults,
  
    # FIXME: I don't know about those, so using RH values for now.
    'debian-2.2'      => $rh_logindefs_defaults,
