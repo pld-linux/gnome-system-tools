@@ -42,6 +42,43 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/platform.pl.in gnome-system-too
      "FreeBSD" => [ \&check_freebsd ],
      "SunOS"    => [ \&check_solaris ]
                 );
+diff -urN aaa/gnome-system-tools-0.24.0/backends/runlevel-conf.in gnome-system-tools-0.24.0/backends/runlevel-conf.in
+--- aaa/gnome-system-tools-0.24.0/backends/runlevel-conf.in	Tue Jan 14 22:26:20 2003
++++ gnome-system-tools-0.24.0/backends/runlevel-conf.in	Sun Apr 27 22:05:54 2003
+@@ -48,7 +48,7 @@
+ 
+               "debian-2.2", "debian-woody", "debian-sarge",
+ 
+-              "suse-7.0", "turbolinux-7.0");
++              "suse-7.0", "turbolinux-7.0", "pld");
+ 
+ $description =<<"end_of_description;";
+        Configures which services are to be started or stopped at which runlevels
+diff -urN aaa/gnome-system-tools-0.24.0/backends/service.pl.in gnome-system-tools-0.24.0/backends/service.pl.in
+--- aaa/gnome-system-tools-0.24.0/backends/service.pl.in	Tue Jan 14 22:26:20 2003
++++ gnome-system-tools-0.24.0/backends/service.pl.in	Sun Apr 27 22:11:51 2003
+@@ -67,7 +67,9 @@
+ 
+        "suse-7.0"     => ["/etc/rc.d", "/etc/rc.d", "../"],
+ 
+-       "turbolinux-7.0"   => ["/etc/rc.d", "/etc/rc.d/init.d", "../init.d"]
++       "turbolinux-7.0"   => ["/etc/rc.d", "/etc/rc.d/init.d", "../init.d"],
++
++       "pld"          => ["/etc/rc.d", "/etc/rc.d/init.d", "../init.d"]
+        );
+   my $res;
+ 
+@@ -101,7 +103,9 @@
+ 
+        "suse-7.0"       => [3, 5],
+ 
+-       "turbolinux-7.0" => [3, 5]
++       "turbolinux-7.0" => [3, 5],
++
++       "pld"            => [3, 5]
+        );
+   my $res;
+ 
 diff -urN aaa/gnome-system-tools-0.24.0/backends/users-conf.in gnome-system-tools-0.24.0/backends/users-conf.in
 --- aaa/gnome-system-tools-0.24.0/backends/users-conf.in	Tue Jan 14 22:26:20 2003
 +++ gnome-system-tools-0.24.0/backends/users-conf.in	Sun Apr 27 19:41:45 2003
