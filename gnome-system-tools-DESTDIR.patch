@@ -1,0 +1,17 @@
+diff -urN aa/gnome-system-tools-0.31.0/src/common/CommonMakefile gnome-system-tools-0.31.0/src/common/CommonMakefile
+--- aa/gnome-system-tools-0.31.0/src/common/CommonMakefile	2003-12-30 01:08:18.000000000 +0100
++++ gnome-system-tools-0.31.0/src/common/CommonMakefile	2004-01-01 23:14:46.283877392 +0100
+@@ -6,11 +6,11 @@
+ $(desktop): %.desktop: %.desktop.in
+ 		../../intltool-merge -d ../../po $(desktop).in $(desktop)
+ 
+-desktopdir = $(DESTDIR)$(datadir)/applications/
++desktopdir = $(datadir)/applications/
+ desktop = $(toolname).desktop
+ desktop_DATA = $(desktop)
+ 
+-startheredir = $(DESTDIR)$(sysconfdir)/X11/sysconfig/
++startheredir = $(sysconfdir)/X11/sysconfig/
+ desktop = $(toolname).desktop
+ starthere_DATA = $(desktop)
+ 
