@@ -3,30 +3,33 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.0.2
+Version:	1.1.90
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	674611d3fb195fde940223821cfa6dda
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.1/%{name}-%{version}.tar.bz2
+# Source0-md5:	c68597f9b85525b4719d16409849b734
 Patch0:		%{name}-CommonMakefile.patch
 Patch1:		%{name}-configure.patch
 Patch2:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	GConf2-devel >= 2.6.2
+BuildRequires:	GConf2-devel >= 2.9.2
 BuildRequires:	cracklib-devel
 BuildRequires:	gnome-common >= 2.8.0
-BuildRequires:	gtk+2-devel >= 2:2.4.4
-BuildRequires:	libglade2-devel >= 1:2.4.0
-BuildRequires:	libgnomeui-devel >= 2.6.1.1
+BuildRequires:	gtk+2-devel >= 2:2.6.2
+BuildRequires:	intltool >= 0.29
+BuildRequires:	libglade2-devel >= 1:2.5.0
+BuildRequires:	libgnomeui-devel >= 2.9.1
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
+BuildRequires:	nautilus-devel >= 2.9.90
+BuildRequires:	pkgconfig
 Requires(post):	GConf2
 Requires(post):	scrollkeeper
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.4.4
+Requires:	gtk+2 >= 2:2.6.2
 Requires:	shadow-extras
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -93,6 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README AUTHORS HACKING NEWS ChangeLog
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
 %attr(755,root,root) %{_datadir}/setup-tool-backends/scripts/*
 %attr(755,root,root) %{_datadir}/setup-tool-backends/files/*
 %dir %{_datadir}/setup-tool-backends
@@ -104,3 +108,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/%{name}.*
 %{_pkgconfigdir}/*.pc
 %{_omf_dest_dir}/%{name}
+%{_aclocaldir}/*.m4
