@@ -12,7 +12,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.29/%{name}-%{version}.
 Patch0:		%{name}-time.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.4.0.1
-Buildrequires:	cracklib-devel
+BuildRequires:	cracklib-devel
 BuildRequires:	libglade2-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.4.0.1
 BuildRequires:	libxml2-devel >= 2.5.11
