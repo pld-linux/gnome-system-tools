@@ -1,0 +1,24 @@
+diff -urN aa/gnome-system-tools-0.33.0/backends/configure.in gnome-system-tools-0.33.0/backends/configure.in
+--- aa/gnome-system-tools-0.33.0/backends/configure.in	2004-05-15 16:59:31.000000000 +0200
++++ gnome-system-tools-0.33.0/backends/configure.in	2004-05-18 12:47:03.271952960 +0200
+@@ -33,7 +33,7 @@
+ GETTEXT_PACKAGE=setup-tools-backends
+ AC_SUBST(GETTEXT_PACKAGE)
+ 
+-ALL_LINGUAS="cs da de en_CA en_GB es hr ja ko lt nl no pl pt pt_BR sr sr@Latn sv"
++ALL_LINGUAS="cs da de en_CA en_GB es hr ja ko lt nb nl pl pt pt_BR sr sr@Latn sv"
+ AM_GLIB_GNU_GETTEXT
+ 
+ AC_OUTPUT([
+diff -urN aa/gnome-system-tools-0.33.0/configure.in gnome-system-tools-0.33.0/configure.in
+--- aa/gnome-system-tools-0.33.0/configure.in	2004-05-15 16:59:20.000000000 +0200
++++ gnome-system-tools-0.33.0/configure.in	2004-05-18 12:38:33.484452440 +0200
+@@ -162,7 +162,7 @@
+ dnl Transtlations
+ dnl ========================================================
+ 
+-ALL_LINGUAS="am az bg ca cs da de el en_CA en_GB es et eu fr ga gl hr hu it ja ko lt lv mk ml mn ms nl nn no pl pt pt_BR ru sk sr sr@Latn sv tr uk vi wa zh_CN zh_TW"
++ALL_LINGUAS="am az bg ca cs da de el en_CA en_GB es et eu fr ga gl hr hu it ja ko lt lv mk ml mn ms nb nl nn pl pt pt_BR ru sk sr sr@Latn sv tr uk vi wa zh_CN zh_TW"
+ GETTEXT_PACKAGE=gnome-system-tools
+ AC_SUBST(GETTEXT_PACKAGE)
+ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [gettext package name])
