@@ -12,7 +12,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.26/%{name}-%{version}.
 Patch0:		%{name}-time.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.2.0
-BuildRequires:	libglade2-devel 
+BuildRequires:	libglade2-devel
 BuildRequires:	libgnomeui-devel >= 2.3.3.1-2
 BuildRequires:	libxml2-devel >= 2.4.12
 BuildRequires:	vte-devel >= 0.10.20
