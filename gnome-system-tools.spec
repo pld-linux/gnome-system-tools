@@ -11,6 +11,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.30/%{name}-%{version}.
 # Source0-md5:	3ed4a4a1393e54a2c950ef1b4b675588
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
+BuildRequires:	automake
 BuildRequires:	GConf2-devel >= 2.4.0.1
 BuildRequires:	cracklib-devel
 BuildRequires:	libglade2-devel >= 2.0.1
@@ -41,6 +42,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch0 -p1
 
 %build
+cp /usr/share/automake/config.sub .
 %configure \
 	--disable-schemas-install \
 	--enable-platform-gnome-2 \
