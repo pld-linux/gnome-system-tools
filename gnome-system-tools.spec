@@ -9,6 +9,7 @@ License:	LGPL
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.30/%{name}-%{version}.tar.bz2
 # Source0-md5:	3ed4a4a1393e54a2c950ef1b4b675588
+Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.4.0.1
 BuildRequires:	cracklib-devel
@@ -37,6 +38,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure \
