@@ -3,13 +3,12 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.31.1
+Version:	0.32.0
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.31/%{name}-%{version}.tar.bz2
-# Source0-md5:	88f6afbd5897651feb1b8ec0fb7eb8b6
-Patch0:		%{name}-pld_1_1_and_1_99_support.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.32/%{name}-%{version}.tar.bz2
+# Source0-md5:	d916a4c03f7c922b5ec906bfdc1694ac
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -41,7 +40,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__aclocal} -I %{_aclocaldir}/gnome2-macros
