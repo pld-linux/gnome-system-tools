@@ -18,7 +18,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	GConf2-devel >= 2.6.2
 BuildRequires:	cracklib-devel
-BuildRequires:	gnome-common >= 2.4.0
+BuildRequires:	gnome-common >= 2.8.0
 BuildRequires:	gtk+2-devel >= 2:2.4.4
 BuildRequires:	libglade2-devel >= 1:2.4.0
 BuildRequires:	libgnomeui-devel >= 2.6.1.1
@@ -65,7 +65,7 @@ cd ..
 
 %{__libtoolize}
 gnome-doc-common
-%{__aclocal} -I %{_aclocaldir}/gnome2-macros
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure \
