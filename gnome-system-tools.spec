@@ -2,13 +2,12 @@
 # Modules that needs to be patched to work with PLD:
 #  - boot-admin
 #  - network-admin
-#  - time-admin
 
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	0.24.0
-Release:	2.3
+Release:	2.4
 License:	LGPL
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.24/%{name}-%{version}.tar.bz2
