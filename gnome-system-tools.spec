@@ -11,6 +11,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.91/%{name}-%{version}.
 # Source0-md5:	51678f1b479a10a731deef7c27d82e35
 Patch0:		%{name}-locale-names.patch
 Patch1:		%{name}-CommonMakefile.patch
+Patch2:		%{name}-configure.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -48,6 +49,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 mv po/{no,nb}.po
 mv backends/po/{no,nb}.po
