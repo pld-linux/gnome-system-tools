@@ -3,16 +3,15 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.0.0
-Release:	2
+Version:	1.0.2
+Release:	1
 License:	LGPL
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	7f85cab03aeffdb9c57925fe2be0e001
-Patch0:		%{name}-locale-names.patch
-Patch1:		%{name}-CommonMakefile.patch
-Patch2:		%{name}-configure.patch
-Patch3:		%{name}-desktop.patch
+# Source0-md5:	674611d3fb195fde940223821cfa6dda
+Patch0:		%{name}-CommonMakefile.patch
+Patch1:		%{name}-configure.patch
+Patch2:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -51,10 +50,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-
-mv po/{no,nb}.po
-rm backends/po/no.po
 
 %build
 cd backends
@@ -80,6 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
+
+rm -r $RPM_BUILD_ROOT%{_datadir}/locale/no
 
 %find_lang %{name} --with-gnome --all-name
 
