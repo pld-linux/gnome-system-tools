@@ -3,12 +3,12 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.34.0
+Version:	0.90.0
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.34/%{name}-%{version}.tar.bz2
-# Source0-md5:	0cd6ad61cb86cce72b86fce3e439fd17
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.90/%{name}-%{version}.tar.bz2
+# Source0-md5:	d3aa306ac76a5cd543985aab87b6a278
 Patch0:		%{name}-locale-names.patch
 Patch1:		%{name}-CommonMakefile.patch
 URL:		http://www.gnome.org/projects/gst/
@@ -17,14 +17,15 @@ BuildRequires:	automake
 BuildRequires:	GConf2-devel >= 2.6.2
 BuildRequires:	cracklib-devel
 BuildRequires:	gnome-common >= 2.4.0
-BuildRequires:	gtk+2-devel >= 2:2.4.3
+BuildRequires:	gtk+2-devel >= 2:2.4.4
 BuildRequires:	libglade2-devel >= 1:2.4.0
 BuildRequires:	libgnomeui-devel >= 2.6.1.1
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
 Requires(post):	GConf2
+Requires(post):	scrollkeeper
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.4.3
+Requires:	gtk+2 >= 2:2.4.4
 Requires:	shadow-extras
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -59,6 +60,7 @@ cd backends
 cd ..
 
 %{__libtoolize}
+gnome-doc-common
 %{__aclocal} -I %{_aclocaldir}/gnome2-macros
 %{__autoconf}
 %{__automake}
@@ -81,7 +83,10 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %post
+/usr/bin/scrollkeeper-update
 %gconf_schema_install
+
+%postun -p /usr/bin/scrollkeeper-update
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -97,3 +102,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 %{_sysconfdir}/gconf/schemas/%{name}.*
 %{_pkgconfigdir}/*.pc
+%{_omf_dest_dir}/%{name}
