@@ -44,7 +44,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch0 -p1
 
 %build
-cp /usr/share/automake/config.sub .
 %{__aclocal} -I %{_aclocaldir}/gnome2-macros
 %{__autoconf}
 %{__automake}
