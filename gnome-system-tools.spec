@@ -1,33 +1,34 @@
-#TODO
-# think about split devel subpackage
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.0.2
+Version:	1.2.0
 Release:	1
-License:	LGPL
+License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	674611d3fb195fde940223821cfa6dda
-Patch0:		%{name}-CommonMakefile.patch
-Patch1:		%{name}-configure.patch
-Patch2:		%{name}-desktop.patch
+Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.2/%{name}-%{version}.tar.bz2
+# Source0-md5:	fbcf8866ecea8b330cbe53cf8b0df55e
+Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	GConf2-devel >= 2.6.2
+BuildRequires:	GConf2-devel >= 2.10.0
 BuildRequires:	cracklib-devel
 BuildRequires:	gnome-common >= 2.8.0
-BuildRequires:	gtk+2-devel >= 2:2.4.4
-BuildRequires:	libglade2-devel >= 1:2.4.0
-BuildRequires:	libgnomeui-devel >= 2.6.1.1
+BuildRequires:	gtk+2-devel >= 2:2.6.4
+BuildRequires:	intltool >= 0.33
+BuildRequires:	libglade2-devel >= 1:2.5.1
+BuildRequires:	libgnomeui-devel >= 2.10.0
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel >= 2.5.11
+BuildRequires:	libxml2-devel >= 2.6.17
+BuildRequires:	nautilus-devel >= 2.10.0
+BuildRequires:	pkgconfig
+BuildRequires:	system-tools-backends >= 1.2.0
 Requires(post):	GConf2
 Requires(post):	scrollkeeper
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.4.4
+Requires:	gtk+2 >= 2:2.6.4
 Requires:	shadow-extras
+Requires:	system-tools-backends >= 1.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -48,16 +49,8 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
-cd backends
-%{__aclocal}
-%{__autoconf}
-%{__automake}
-cd ..
-
 %{__libtoolize}
 gnome-doc-common
 %{__aclocal}
@@ -93,14 +86,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README AUTHORS HACKING NEWS ChangeLog
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_datadir}/setup-tool-backends/scripts/*
-%attr(755,root,root) %{_datadir}/setup-tool-backends/files/*
-%dir %{_datadir}/setup-tool-backends
-%dir %{_datadir}/setup-tool-backends/files
-%dir %{_datadir}/setup-tool-backends/scripts
+%attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
+%{_pkgconfigdir}/*.pc
 %{_desktopdir}/*.desktop
-%{_sysconfdir}/X11/sysconfig/*.desktop
 %{_datadir}/%{name}
 %{_sysconfdir}/gconf/schemas/%{name}.*
-%{_pkgconfigdir}/*.pc
 %{_omf_dest_dir}/%{name}
