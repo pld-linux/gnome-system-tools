@@ -10,6 +10,483 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/boot-conf.in gnome-system-tools
  
  $description =<<"end_of_description;";
         Configures Boot manager (LILO and GRUB at the moment).
+diff -urN aaa/gnome-system-tools-0.24.0/backends/network-conf.in gnome-system-tools-0.24.0/backends/network-conf.in
+--- aaa/gnome-system-tools-0.24.0/backends/network-conf.in	Tue Jan 14 22:26:20 2003
++++ gnome-system-tools-0.24.0/backends/network-conf.in	Mon Apr 28 14:09:30 2003
+@@ -73,7 +73,7 @@
+               
+               "debian-2.2", "debian-woody", "debian-sarge",
+               
+-              "suse-7.0", "turbolinux-7.0");
++              "suse-7.0", "turbolinux-7.0", "pld");
+ 
+ $description =<<"end_of_description;";
+        Configures all network parameters and interfaces.
+diff -urN aaa/gnome-system-tools-0.24.0/backends/network.pl.in gnome-system-tools-0.24.0/backends/network.pl.in
+--- aaa/gnome-system-tools-0.24.0/backends/network.pl.in	Thu Feb  6 20:12:05 2003
++++ gnome-system-tools-0.24.0/backends/network.pl.in	Mon Apr 28 22:06:11 2003
+@@ -142,7 +142,8 @@
+        "debian-sarge" => "debian-2.2",
+        "mandrake-7.1" => "debian-2.2",
+        "mandrake-7.2" => "debian-2.2",
+-       "suse-7.0"     => "debian-2.2" # FIXME: assumed that only redhat distros use -b.
++       "suse-7.0"     => "debian-2.2", # FIXME: assumed that only redhat distros use -b.
++       "pld"          => "redhat-6.2"
+        );
+ 
+   return $cmd_map{$dist_map{$xst_dist}};
+@@ -576,6 +577,12 @@
+   return @ret;
+ }
+ 
++sub xst_network_sysconfig_pld_ifaces_get_existing
++{
++  return @{&xst_network_sysconfig_dir_ifaces_get_existing ("/etc/sysconfig/interfaces")};
++}
++
++
+ sub xst_network_suse70_parse_iface_num
+ {
+   my ($file, $dev) = @_;
+@@ -998,6 +1005,25 @@
+   return $i;
+ }
+ 
++sub xst_network_pld_get_file
++{
++  my ($iface) = @_;
++  my ($pre, $i, $dev);
++                                                                                
++  $dev = $$iface{"dev"};
++  $pre = "$xst_prefix/etc/sysconfig/interfaces/ifcfg-";
++                                                                                
++  return $dev if ! -e "$pre$dev";
++                                                                                
++  $dev =~ s/[0-9]*$//;
++                                                                                
++  $i = 0;
++  $i ++ while (-e "$pre$dev$i");
++                                                                                
++  return "$dev$i";
++}
++
++
+ sub xst_network_get_file
+ {
+   my ($iface) = @_;
+@@ -1018,7 +1044,8 @@
+     "debian-woody" => \&xst_network_deb22_get_file,
+     "debian-sarge" => \&xst_network_deb22_get_file,
+     "suse-7.0"     => \&xst_network_suse70_get_file,
+-	  "turbolinux-7.0"   => \&xst_network_rh62_get_file
++	  "turbolinux-7.0"   => \&xst_network_rh62_get_file,
++    "pld"          => \&xst_network_pld_get_file
+ 	  );
+ 
+   $proc = $dist_map{$xst_dist};
+@@ -1366,6 +1393,26 @@
+   &xst_replace_sh ($file, "IFCONFIG_$dev", "");
+ }
+ 
++sub xst_network_pld_interface_delete
++{
++  my ($old_hash) = @_;
++  my $dev = $$old_hash{"file"};
++  my $file = "$xst_prefix/etc/sysconfig/interfaces/ifcfg-$dev";
++  my $login;
++                                                                                
++  &xst_network_rh62_interface_activate_by_dev ($dev, 0);
++                                                                                
++  $login = $old_hash{"login"};
++  if ($login ne "")
++  {
++    &xst_network_remove_pap_entry ("/etc/ppp/pap-secrets", $login);
++    &xst_network_remove_pap_entry ("/etc/ppp/chap-secrets", $login);
++  }
++                                                                                
++  unlink ($file);
++}
++
++
+ sub xst_network_interface_changed
+ {
+     my ($iface, $iface_old) = @_;
+@@ -1771,6 +1818,43 @@
+   return &xst_network_suse70_replace_iface_sh ($file, $iface, "IFCONFIG", $val);
+ }
+ 
++sub xst_network_pld_parse_bootproto
++{
++  my ($file, $key) = @_;
++  my %pld_to_proto_name =
++	 (
++    "bootp" => "bootp",
++	  "dhcp"  => "dhcp",
++    "pump"  => "pump",
++	  "none"  => "none"
++	  );
++  my $ret;
++
++  $ret = &xst_parse_sh ($file, $key);
++  
++  if (!exists $pld_to_proto_name{$ret})
++  {
++    &xst_report ("network_bootproto_unsup", $file, $ret);
++    $ret = "none";
++  }
++  return $pld_to_proto_name{$ret};
++}
++
++sub xst_network_pld_replace_bootproto
++{
++  my ($file, $key, $value) = @_;
++  my %proto_name_to_pld =
++	 (
++    "bootp"    => "bootp",
++	  "dhcp"     => "dhcp",
++    "pump"     => "pump",
++	  "none"     => "none"
++	  );
++
++  return &xst_replace_sh ($file, $key, $proto_name_to_pld{$value});
++}
++
++
+ sub xst_network_pump_iface_supported
+ {
+   my ($iface) = @_;
+@@ -1912,6 +1996,81 @@
+   return &xst_file_buffer_save ($buff, $file);
+ }
+ 
++# Return IP address or netmask, depending on $what
++sub xst_network_pld_get_ipaddr
++{
++  my ($file, $key, $what) = @_;
++  my ($ipaddr, $netmask, $ret, $i);
++	my @netmask_prefixes = (0, 128, 192, 224, 240, 248, 252, 254, 255);
++  
++  $ipaddr = &xst_parse_sh($file, $key);
++  return undef if $ipaddr eq "";
++  
++  if($ipaddr =~ /([^\/]*)\/([[:digit:]]*)/)
++  {
++    $netmask = $2;
++    return undef if $netmask eq "";
++
++    if($what eq "address")
++    {
++      return $1;
++    }
++
++    for($i = 0; $i < int($netmask/8); $i++)
++    {
++      $ret .= "255.";
++    }
++
++    $ret .= "$netmask_prefixes[$b%8]." if $netmask < 32;
++
++    for($i = int($netmask/8) + 1; $i < 4; $i++)
++    {
++      $ret .= "0.";
++    }
++
++    chop($ret);
++    return $ret;
++  }
++  return undef;
++}
++
++# Writes IP address or netmask, depending in $what, to $file
++sub xst_network_pld_set_ipaddr
++{
++  my ($file, $key, $what, $value) = @_;
++  my %prefixes =
++  (
++    "0"   => 0,
++    "128" => 1,
++    "192" => 2,
++    "224" => 3,
++    "240" => 4,
++    "248" => 5,
++    "252" => 6,
++    "254" => 7,
++    "255" => 8
++  );
++  my ($ipaddr, $netmask);
++
++  $ipaddr = &xst_parse_sh($file, $key);
++  return undef if $ipaddr eq "";
++
++  if($what eq "address")
++  {
++    $ipaddr =~ s/.*\//$value\//;
++  }
++	else
++  {
++    if($value =~ /([[:digit:]]*).([[:digit:]]*).([[:digit:]]*).([[:digit:]]*)/)
++    {
++      $netmask = $prefixes{$1} + $prefixes{$2} + $prefixes{$3} + $prefixes{$4};
++      $ipaddr =~ s/\/[[:digit:]]*/\/$netmask/;
++    }
++  }
++
++  return &xst_replace_sh($file, $key, $ipaddr);
++}
++
+ # Set dist_map for your distro to "" if you don't want
+ # loopback ensuring. See suse-7.0 entry for example.
+ sub xst_network_ensure_loopback_interface
+@@ -1934,7 +2093,8 @@
+     "debian-woody" => "lo",
+     "debian-sarge" => "lo",
+     "suse-7.0"     => "",
+-	  "turbolinux-7.0"   => "lo"
++	  "turbolinux-7.0"   => "lo",
++    "pld"          => "lo"
+ 	  );
+ 
+   $dev = $dist_map {$xst_dist};
+@@ -2033,7 +2193,8 @@
+     "debian-woody" => "debian-2.2",
+     "debian-sarge" => "debian-2.2",
+     "suse-7.0"     => "suse-7.0",
+-	  "turbolinux-7.0"   => "redhat-7.0"
++	  "turbolinux-7.0"   => "redhat-7.0",
++    "pld"          =>  "pld"
+ 	  );
+ 
+   my %dist_tables =
+@@ -2227,6 +2388,42 @@
+ 		    [ "interface_tmp", \&xst_network_interfaces_get ],
+         [ "interface",     \&xst_network_suse70_get_ppp,         "%dialing%", "%interface_tmp%" ],
+ 		    ]
++			 },
++
++	  "pld" =>
++	  {
++	    fn =>
++	    {
++        SYSCONFIG_NW => "/etc/sysconfig/network",
++        RESOLV_CONF  => "/etc/resolv.conf",
++        HOST_CONF    => "/etc/host.conf",
++        HOSTS        => "/etc/hosts",
++        SMB_CONF     => "/etc/smb/smb.conf",
++        WVDIAL       => "/etc/wvdial.conf"
++      },
++	    table =>
++		   [
++		    [ "hostname",      \&xst_parse_sh,                SYSCONFIG_NW, HOSTNAME ],
++        [ "gateway",       \&xst_parse_sh,                SYSCONFIG_NW, GATEWAY ],
++        [ "gatewaydev",    \&xst_parse_sh,                SYSCONFIG_NW, GATEWAYDEV ],
++        [ "userifacectl",  \&xst_parse_trivial,           1 ],
++		    [ "nameserver",    \&xst_parse_split_all_unique_hash_comment, RESOLV_CONF,  "nameserver", "[ \t]+" ],
++		    [ "searchdomain",  \&xst_parse_split_first_array_unique, RESOLV_CONF,  "search", "[ \t]+", "[ \t]+" ],
++		    [ "domain",        \&xst_parse_split_first_str,   RESOLV_CONF,  "domain", "[ \t]+" ],
++		    [ "order",         \&xst_parse_split_first_array, HOST_CONF,    "order", "[ \t]+", ",[ \t]*" ],
++		    [ "hostmatch",     \&xst_parse_split_first_bool,  HOST_CONF,    "multi", "[ \t]+" ],
++		    [ "statichost",    \&xst_parse_split_hash,        HOSTS,        "[ \t]+", "[ \t]+" ],
++		    [ "workgroup",     \&xst_parse_ini,               SMB_CONF,     "global", "workgroup" ],     
++		    [ "description",   \&xst_network_rh_get_smb_desc, SMB_CONF,   "global", "server string", "%hostname%" ],
++		    [ "winsserver",    \&xst_parse_ini,               SMB_CONF,     "global", "wins server" ],
++		    [ "winsuse",       \&xst_parse_ini_bool,          SMB_CONF,     "global", "wins support" ],
++        [ "smbuse",        \&xst_service_sysv_get_status_any, "smbd", "nmbd" ],
++        [ "smbinstalled",  \&xst_service_sysv_installed,  "smb" ],
++        [ "smartdhcpcd",   \&xst_file_tool_installed,     "pump" ],
++        [ "dialinstalled", \&xst_file_tool_installed,     "wvdial" ],
++		    [ "dialing",       \&xst_network_dialing_get,     WVDIAL ],
++		    [ "interface",     \&xst_network_interfaces_get ]
++		    ]
+ 			 }
+ 
+ 	  );
+@@ -2256,7 +2453,8 @@
+     "debian-woody" => "debian-woody",
+     "debian-sarge" => "debian-woody",
+     "suse-7.0"     => "suse-7.0",
+-	  "turbolinux-7.0"   => "redhat-6.2"
++	  "turbolinux-7.0"   => "redhat-6.2",
++    "pld"          => "pld"
+ 	  );
+   
+   my %dist_tables =
+@@ -2497,6 +2695,56 @@
+                                                                 \&xst_network_suse70_active_interfaces_get ],
+            [ "enabled",            \&xst_parse_trivial,                   0 ]
+            ]
++             },
++
++	  "pld" =>
++	  {
++	    ifaces_get => \&xst_network_sysconfig_pld_ifaces_get_existing,
++	    fn =>
++	    {
++        IFCFG => "/etc/sysconfig/interfaces/ifcfg-#iface#",
++        CHAT  => "/etc/sysconfig/interfaces/data/chat-#iface#",
++        IFACE => "#iface#",
++        PAP   => "/etc/ppp/pap-secrets",
++        CHAP  => "/etc/ppp/chap-secrets",
++        PUMP  => "/etc/pump.conf"
++      },
++	    table =>
++          [
++           [ "bootproto",          \&xst_network_pld_parse_bootproto, IFCFG, BOOTPROTO ],
++           [ "auto",               \&xst_parse_sh_bool, IFCFG, ONBOOT ],
++           [ "user",               \&xst_parse_sh_bool, IFCFG, USERCTL ],
++           [ "name",               \&xst_parse_sh,      IFCFG, DEVICE ],
++           [ "dev",                \&xst_parse_sh,      IFCFG, DEVICE ],
++           [ "address",            \&xst_network_pld_get_ipaddr, IFCFG, IPADDR, "address" ],
++           [ "netmask",            \&xst_network_pld_get_ipaddr, IFCFG, IPADDR, "netmask" ],
++#           [ "broadcast",          \&xst_parse_sh,      IFCFG, BROADCAST ],
++#           [ "network",            \&xst_parse_sh,      IFCFG, NETWORK ],
++           [ "gateway",            \&xst_parse_sh,      IFCFG, GATEWAY ],
++#           [ "update_dns",         \&xst_network_pump_get_nodns, PUMP, "%dev%", "%bootproto%" ],
++           [ "update_dns",         \&xst_parse_sh_bool, IFCFG, PEERDNS ],
++#           [ "dns1",               \&xst_parse_sh,      IFCFG, DNS1 ],
++#           [ "dns2",               \&xst_parse_sh,      IFCFG, DNS2 ],
++           [ "mtu",                \&xst_parse_sh,      IFCFG, MTU ],
++           [ "mru",                \&xst_parse_sh,      IFCFG, MRU ],
++           [ "remote_address",     \&xst_parse_sh,      IFCFG, REMIP ],
++           [ "login",              \&xst_parse_sh,      IFCFG, PAPNAME ],
++           [ "password",           \&xst_network_get_pap_passwd, PAP,  "%login%" ],
++           [ "password",           \&xst_network_get_pap_passwd, CHAP, "%login%" ],
++           [ "serial_port",        \&xst_parse_sh,      IFCFG, MODEMPORT ],
++           [ "serial_speed",       \&xst_parse_sh,      IFCFG, LINESPEED ],
++           [ "ppp_options",        \&xst_parse_sh,      IFCFG, PPPOPTIONS ],
++#           [ "wvsection",          \&xst_parse_sh,      IFCFG, WVDIALSECT ],
++           [ "set_default_gw",     \&xst_parse_sh_bool, IFCFG, DEFROUTE ],
++           [ "debug",              \&xst_parse_sh_bool, IFCFG, DEBUG ],
++           [ "persist",            \&xst_parse_sh_bool, IFCFG, PERSIST ],
++           [ "serial_escapechars", \&xst_parse_sh_bool, IFCFG, ESCAPECHARS ],
++           [ "serial_hwctl",       \&xst_parse_sh_bool, IFCFG, HARDFLOWCTL ],
++           [ "phone_number",       \&xst_parse_chat,    CHAT, "^atd[^0-9]*([0-9, -]+)" ],
++           [ "enabled",            \&xst_network_interface_active, IFACE,
++                                                                   \&xst_network_active_interfaces_get ],
++           [ "enabled",            \&xst_parse_trivial, 0 ]
++           ]
+              }
+ 	  );
+   
+@@ -2525,7 +2773,8 @@
+     "debian-woody" => "debian-2.2",
+     "debian-sarge" => "debian-2.2",
+     "suse-7.0"     => "suse-7.0",
+-	  "turbolinux-7.0"   => "redhat-7.0"
++	  "turbolinux-7.0"   => "redhat-7.0",
++    "pld"          => "pld"
+ 	  );
+ 
+   my %dist_tables =
+@@ -2713,7 +2962,43 @@
+         [ "interface",     \&xst_network_interfaces_set,	 OLD_HASH ],
+         [ "_always_",      \&xst_file_run,                 SUSECONFIG ],
+ 		    ]
+-			 }
++			 },
++
++	  "pld" =>
++	  {
++	    fn =>
++	    {
++        SYSCONFIG_NW => "/etc/sysconfig/network",
++        RESOLV_CONF  => "/etc/resolv.conf",
++        HOST_CONF    => "/etc/host.conf",
++        HOSTS        => "/etc/hosts",
++        SMB_CONF     => "/etc/smb/smb.conf",
++        WVDIAL       => "/etc/wvdial.conf"
++      },
++	    table =>
++          [
++           [ "auto",          \&xst_replace_sh_bool,          SYSCONFIG_NW, NETWORKING ],
++           [ "hostname",      \&xst_replace_sh,               SYSCONFIG_NW, HOSTNAME ],
++           [ "hostname",      \&xst_network_run_hostname ],
++           [ "gateway",       \&xst_replace_sh,               SYSCONFIG_NW, GATEWAY],
++           [ "gatewaydev",    \&xst_replace_sh,               SYSCONFIG_NW, GATEWAYDEV],
++#           [ "domain",        \&xst_replace_sh,               SYSCONFIG_NW, DOMAIN],
++           [ "domain",        \&xst_replace_join_first_str,   RESOLV_CONF,  "domain", "[ \t]+" ],
++           [ "nameserver",    \&xst_replace_join_all,         RESOLV_CONF,  "nameserver", "[ \t]+" ],
++           [ "searchdomain",  \&xst_replace_join_first_array, RESOLV_CONF,  "search", "[ \t]+", "[ \t]+" ],
++           [ "order",         \&xst_replace_join_first_array, HOST_CONF,    "order", "[ \t]+", ",[ \t]*" ],
++           [ "hostmatch",     \&xst_replace_join_first_bool,  HOST_CONF,    "multi", "[ \t]+", "on", "off" ],
++           [ "statichost",    \&xst_replace_join_hash,        HOSTS,        "[ \t]+", "[ \t]+" ],
++           [ "workgroup",     \&xst_replace_ini,              SMB_CONF,     "global", "workgroup" ],     
++           [ "description",   \&xst_replace_ini,              SMB_CONF,     "global", "server string" ],
++           [ "winsserver",    \&xst_replace_ini,              SMB_CONF,     "global", "wins server" ],
++           [ "winsuse",       \&xst_replace_ini_bool,         SMB_CONF,     "global", "wins support" ],
++           [ "smbuse",        \&xst_service_sysv_set_status,  91, "smb" ],
++           [ "dialing",       \&xst_network_dialing_set,      [WVDIAL, OLD_HASH] ],
++           [ "interface",     \&xst_network_interfaces_set,		OLD_HASH ],
++           [ "gateway",       \&xst_network_route_set_default_gw, "%gatewaydev%" ]
++           ]
++             }
+ 	  );
+   
+   my $dist = $dist_map{$xst_dist};
+@@ -2741,7 +3026,8 @@
+     "debian-woody" => "debian-woody",
+     "debian-sarge" => "debian-woody",
+     "suse-7.0"     => "suse-7.0",
+-	  "turbolinux-7.0"   => "redhat-6.2"
++	  "turbolinux-7.0"   => "redhat-6.2",
++    "pld"          => "pld"
+ 	  );
+ 
+   my %dist_tables =
+@@ -2968,7 +3254,54 @@
+            [ "remote_address",     \&xst_network_suse70_set_ifconfig_arg,   [IFCFG, IFACE], pointopoint ],
+            [ "update_dns",         \&xst_replace_kw,                        PPP_OPTIONS, "usepeerdns" ]
+       ]
++    },
++
++    "pld" =>
++	  {
++      iface_set    => \&xst_network_rh62_interface_activate,
++      iface_delete => \&xst_network_pld_interface_delete,
++      ifaces_get   => \&xst_network_sysconfig_pld_ifaces_get_existing,
++      fn =>
++	    {
++        IFCFG  => "/etc/sysconfig/interfaces/ifcfg-#iface#",
++        CHAT   => "/etc/sysconfig/interfaces/data/chat-#iface#",
++        IFACE  => "#iface#",
++        WVDIAL => "/etc/wvdial.conf",
++        PUMP   => "/etc/pump.conf"
++      },
++      table =>
++       [
++        [ "bootproto",          \&xst_network_pld_replace_bootproto, IFCFG, BOOTPROTO ],
++        [ "auto",               \&xst_replace_sh_bool, IFCFG, ONBOOT ],
++        [ "user",               \&xst_replace_sh_bool, IFCFG, USERCTL ],
++#        [ "name",               \&xst_replace_sh,      IFCFG, NAME ],
++        [ "dev",                \&xst_replace_sh,      IFCFG, DEVICE ],
++        [ "address",            \&xst_network_pld_set_ipaddr, IFCFG, IPADDR, "address" ],
++        [ "netmask",            \&xst_network_pld_set_ipaddr, IFCFG, IPADDR, "netmask" ],
++#        [ "broadcast",          \&xst_replace_sh,      IFCFG, BROADCAST ],
++#        [ "network",            \&xst_replace_sh,      IFCFG, NETWORK ],
++        [ "gateway",            \&xst_replace_sh,      IFCFG, GATEWAY ],
++#        [ "update_dns",         \&xst_network_pump_set_nodns, PUMP, "%dev%", "%bootproto%" ],
++        [ "update_dns",         \&xst_replace_sh_bool, IFCFG, PEERDNS ],
++#        [ "dns1",               \&xst_replace_sh,      IFCFG, DNS1 ],
++#        [ "dns2",               \&xst_replace_sh,      IFCFG, DNS2 ],
++        [ "mtu",                \&xst_replace_sh,      IFCFG, MTU ],
++        [ "mru",                \&xst_replace_sh,      IFCFG, MRU ],
++        [ "remote_address",     \&xst_replace_sh,      IFCFG, REMIP ],
++        [ "login",              \&xst_replace_sh,      IFCFG, PAPNAME ],
++        [ "serial_port",        \&xst_replace_sh,      IFCFG, MODEMPORT ],
++        [ "serial_speed",       \&xst_replace_sh,      IFCFG, LINESPEED ],
++        [ "ppp_options",        \&xst_replace_sh,      IFCFG, PPPOPTIONS ],
++#        [ "wvsection",          \&xst_replace_sh,      IFCFG, WVDIALSECT ],
++        [ "set_default_gw",     \&xst_replace_sh_bool, IFCFG, DEFROUTE ],
++        [ "debug",              \&xst_replace_sh_bool, IFCFG, DEBUG ],
++        [ "persist",            \&xst_replace_sh_bool, IFCFG, PERSIST ],
++        [ "serial_escapechars", \&xst_replace_sh_bool, IFCFG, ESCAPECHARS ],
++        [ "serial_hwctl",       \&xst_replace_sh_bool, IFCFG, HARDFLOWCTL ],
++        [ "phone_number",       \&xst_replace_chat,    CHAT,  "^atd[^0-9]*([0-9, -]+)" ]
++      ]
+     }
++
+   );
+   
+   my $dist = $dist_map{$xst_dist};
 diff -urN aaa/gnome-system-tools-0.24.0/backends/platform.pl.in gnome-system-tools-0.24.0/backends/platform.pl.in
 --- aaa/gnome-system-tools-0.24.0/backends/platform.pl.in	Tue Jan 14 22:33:55 2003
 +++ gnome-system-tools-0.24.0/backends/platform.pl.in	Sun Apr 27 20:32:07 2003
