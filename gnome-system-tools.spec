@@ -3,18 +3,17 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.1.91
+Version:	1.1.92
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.1/%{name}-%{version}.tar.bz2
-# Source0-md5:	c47b1d841350538621b69c671f9108a3
-Patch0:		%{name}-CommonMakefile.patch
-Patch1:		%{name}-desktop.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/1.1/%{name}-%{version}.tar.bz2
+# Source0-md5:	645e038837d24e6a0de02b5bf5ea731c
+Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	GConf2-devel >= 2.9.2
+BuildRequires:	GConf2-devel >= 2.9.91
 BuildRequires:	cracklib-devel
 BuildRequires:	gnome-common >= 2.8.0
 BuildRequires:	gtk+2-devel >= 2:2.6.2
@@ -25,13 +24,13 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
 BuildRequires:	nautilus-devel >= 2.9.90
 BuildRequires:	pkgconfig
-BuildRequires:	system-tools-backends >= 1.1.91
+BuildRequires:	system-tools-backends >= 1.1.92
 Requires(post):	GConf2
 Requires(post):	scrollkeeper
 Requires:	/etc/pld-release
 Requires:	gtk+2 >= 2:2.6.2
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 1.1.91
+Requires:	system-tools-backends >= 1.1.92
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -52,7 +51,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -93,7 +91,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
 %{_pkgconfigdir}/*.pc
 %{_desktopdir}/*.desktop
-%{_sysconfdir}/X11/sysconfig/*.desktop
 %{_datadir}/%{name}
 %{_sysconfdir}/gconf/schemas/%{name}.*
 %{_omf_dest_dir}/%{name}
