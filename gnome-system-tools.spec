@@ -3,13 +3,12 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.26.1
-Release:	3
+Version:	0.27.0
+Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.26/%{name}-%{version}.tar.bz2
-# Source0-md5:	310e5b812ecec982365484b5fbbcca4e
-Patch0:		%{name}-time.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.27/%{name}-%{version}.tar.bz2
+# Source0-md5:	030ffbe535893ce27ee90bbb8e384a34
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.2.0
 BuildRequires:	libglade2-devel
@@ -38,7 +37,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure \
@@ -71,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/setup-tool-backends
 %dir %{_datadir}/setup-tool-backends/files
 %dir %{_datadir}/setup-tool-backends/scripts
-%{_datadir}/control-center-2.0/capplets/*.desktop
+%{_desktopdir}/*.desktop
 %{_sysconfdir}/X11/sysconfig/*.desktop
 %{_datadir}/%{name}
 %{_sysconfdir}/gconf/schemas/%{name}.*
