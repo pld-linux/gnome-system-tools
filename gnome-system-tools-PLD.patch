@@ -1,3 +1,15 @@
+diff -urN aaa/gnome-system-tools-0.24.0/backends/boot-conf.in gnome-system-tools-0.24.0/backends/boot-conf.in
+--- aaa/gnome-system-tools-0.24.0/backends/boot-conf.in	Sat Mar  8 02:02:01 2003
++++ gnome-system-tools-0.24.0/backends/boot-conf.in	Mon Apr 28 13:39:53 2003
+@@ -68,7 +68,7 @@
+               
+               "suse-7.0", "turbolinux-7.0",
+ 
+-              "slackware-9.0");
++              "slackware-9.0", "pld");
+ 
+ $description =<<"end_of_description;";
+        Configures Boot manager (LILO and GRUB at the moment).
 diff -urN aaa/gnome-system-tools-0.24.0/backends/platform.pl.in gnome-system-tools-0.24.0/backends/platform.pl.in
 --- aaa/gnome-system-tools-0.24.0/backends/platform.pl.in	Tue Jan 14 22:33:55 2003
 +++ gnome-system-tools-0.24.0/backends/platform.pl.in	Sun Apr 27 20:32:07 2003
