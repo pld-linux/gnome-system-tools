@@ -79,6 +79,88 @@ diff -urN aaa/gnome-system-tools-0.24.0/backends/service.pl.in gnome-system-tool
         );
    my $res;
  
+diff -urN aaa/gnome-system-tools-0.24.0/backends/time-conf.in gnome-system-tools-0.24.0/backends/time-conf.in
+--- aaa/gnome-system-tools-0.24.0/backends/time-conf.in	Tue Jan 14 22:26:20 2003
++++ gnome-system-tools-0.24.0/backends/time-conf.in	Sun Apr 27 22:42:40 2003
+@@ -70,7 +70,7 @@
+ 	      
+               "slackware-8.0.0", "slackware-9.0",
+ 
+-              "gentoo");
++              "gentoo", "pld");
+ 
+ $description =<<"end_of_description;";
+        Configures your system clock, timezone and time server list.
+@@ -439,7 +439,9 @@
+    "slackware-8.0.0" => "debian-2.2",
+    "slackware-9.0"   => "debian-2.2",
+ 
+-   "gentoo"          => "redhat-7.0"
++   "gentoo"          => "redhat-7.0",
++
++   "pld"             => "pld"
+    );
+ 
+   my %dist_tables =
+@@ -515,6 +517,24 @@
+               [ "sync_active",  \&xst_service_sysv_get_status, "xntpd" ],
+               [ "ntpinstalled", \&xst_service_sysv_installed, "xntpd" ],
+               ]
++                },
++
++       "pld" =>
++       {
++         fn =>
++         {
++           NTP_CONF     => "/etc/ntp/ntp.conf",
++           ZONEINFO     => "/usr/share/zoneinfo",
++           LOCAL_TIME   => "/etc/localtime"
++         },
++         table =>
++             [
++              [ "local_time",   \&time_get_local_time ],
++              [ "timezone",     \&time_get_rh62_zone, [LOCAL_TIME, ZONEINFO] ],
++              [ "sync",         \&xst_parse_split_all_hash_comment, NTP_CONF, "server", "[ \t]+" ],
++              [ "sync_active",  \&xst_service_sysv_get_status, "ntpd" ],
++              [ "ntpinstalled", \&xst_service_sysv_installed, "ntpd" ],
++              ]
+                 }
+        );
+ 
+@@ -551,7 +571,9 @@
+    "turbolinux-7.0"  => "redhat-7.0",
+    
+    "slackware-8.0.0" => "debian-2.2",
+-   "slackware-9.0"   => "debian-2.2"
++   "slackware-9.0"   => "debian-2.2",
++
++   "pld"             => "pld"
+    );
+ 
+   my %dist_tables =
+@@ -623,6 +645,22 @@
+               [ "sync",         \&xst_replace_join_all, NTP_CONF, "server", "[ \t]+" ],
+               [ "sync_active",  \&xst_service_sysv_set_status, 90, "xntpd" ],
+               ]
++                },
++
++       "pld" =>
++       {
++         fn =>
++         {
++           NTP_CONF     => "/etc/ntp/ntp.conf",
++           ZONEINFO     => "/usr/share/zoneinfo",
++           LOCAL_TIME   => "/etc/localtime"
++         },
++         table =>
++             [
++              [ "timezone",     \&time_set_rh62_zone, [LOCAL_TIME, ZONEINFO] ],
++              [ "local_time",   \&xst_replace_join_all, NTP_CONF, "server", "[ \t]+" ],
++              [ "sync_active",  \&xst_service_sysv_set_status, 90, "ntpd" ],
++              ]
+                 }
+        );
+ 
 diff -urN aaa/gnome-system-tools-0.24.0/backends/users-conf.in gnome-system-tools-0.24.0/backends/users-conf.in
 --- aaa/gnome-system-tools-0.24.0/backends/users-conf.in	Tue Jan 14 22:26:20 2003
 +++ gnome-system-tools-0.24.0/backends/users-conf.in	Sun Apr 27 19:41:45 2003
