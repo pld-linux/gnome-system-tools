@@ -3,34 +3,34 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.1.92
+Version:	1.2.0
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/1.1/%{name}-%{version}.tar.bz2
-# Source0-md5:	645e038837d24e6a0de02b5bf5ea731c
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/1.2/%{name}-%{version}.tar.bz2
+# Source0-md5:	fbcf8866ecea8b330cbe53cf8b0df55e
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	GConf2-devel >= 2.9.91
+BuildRequires:	GConf2-devel >= 2.10.0
 BuildRequires:	cracklib-devel
 BuildRequires:	gnome-common >= 2.8.0
-BuildRequires:	gtk+2-devel >= 2:2.6.2
-BuildRequires:	intltool >= 0.29
-BuildRequires:	libglade2-devel >= 1:2.5.0
-BuildRequires:	libgnomeui-devel >= 2.9.1
+BuildRequires:	gtk+2-devel >= 2:2.6.4
+BuildRequires:	intltool >= 0.33
+BuildRequires:	libglade2-devel >= 1:2.5.1
+BuildRequires:	libgnomeui-devel >= 2.10.0
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel >= 2.5.11
-BuildRequires:	nautilus-devel >= 2.9.90
+BuildRequires:	libxml2-devel >= 2.6.17
+BuildRequires:	nautilus-devel >= 2.10.0
 BuildRequires:	pkgconfig
-BuildRequires:	system-tools-backends >= 1.1.92
+BuildRequires:	system-tools-backends >= 1.2.0
 Requires(post):	GConf2
 Requires(post):	scrollkeeper
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.6.2
+Requires:	gtk+2 >= 2:2.6.4
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 1.1.92
+Requires:	system-tools-backends >= 1.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
