@@ -1,0 +1,65 @@
+diff -urN aaa/gnome-system-tools-0.24.0/backends/platform.pl.in gnome-system-tools-0.24.0/backends/platform.pl.in
+--- aaa/gnome-system-tools-0.24.0/backends/platform.pl.in	Tue Jan 14 22:33:55 2003
++++ gnome-system-tools-0.24.0/backends/platform.pl.in	Sun Apr 27 20:32:07 2003
+@@ -59,7 +59,8 @@
+   "slackware-9.0"   => "Slackware 9.0",
+   "freebsd-4"       => "FreeBSD 4",
+   "freebsd-5"       => "FreeBSD 5",
+-  "gentoo"          => "Gentoo Linux"
++  "gentoo"          => "Gentoo Linux",
++  "pld"             => "PLD Linux Distribution"
+ };
+   
+ sub check_lsb
+@@ -201,6 +202,7 @@
+ sub check_gentoo
+ {
+   return "gentoo" if stat ("$xst_prefix/usr/portage");
++  return -1;
+ }
+ 
+ sub check_linuxppc
+@@ -261,6 +263,13 @@
+   return -1;
+ }
+ 
++sub check_pld
++{
++  return "pld" if stat ("$xst_prefix/etc/pld-release");
++  return -1;
++}
++
++
+ sub xst_platform_guess
+ {
+   my ($tool) = @_;
+@@ -278,7 +287,7 @@
+     # Red Hat check must run after Mandrake
+     "Linux" => [ \&check_lsb,      \&check_debian,   \&check_caldera, \&check_suse, 
+                  \&check_mandrake, \&check_linuxppc, \&check_redhat,  \&check_turbolinux,
+-                 \&check_slackware, \&check_gentoo],
++                 \&check_slackware, \&check_gentoo,  \&check_pld ],
+     "FreeBSD" => [ \&check_freebsd ],
+     "SunOS"    => [ \&check_solaris ]
+                );
+diff -urN aaa/gnome-system-tools-0.24.0/backends/users-conf.in gnome-system-tools-0.24.0/backends/users-conf.in
+--- aaa/gnome-system-tools-0.24.0/backends/users-conf.in	Tue Jan 14 22:26:20 2003
++++ gnome-system-tools-0.24.0/backends/users-conf.in	Sun Apr 27 19:41:45 2003
+@@ -78,7 +78,8 @@
+ 
+               "slackware-8.0.0", "slackware-9.0",
+ 
+-              "freebsd-4", "freebsd-5");
++              "freebsd-4", "freebsd-5",
++              "pld");
+ 
+ $description =<<"end_of_description;";
+        Manages system users.
+@@ -229,6 +230,7 @@
+   'redhat-8.0'      => $rh_logindefs_defaults,
+   'mandrake-7.1'    => $rh_logindefs_defaults,
+   'mandrake-7.2'    => $rh_logindefs_defaults,
++  'pld'             => $rh_logindefs_defaults,
+ 
+   # FIXME: I don't know about those, so using RH values for now.
+   'debian-2.2'      => $rh_logindefs_defaults,
