@@ -3,15 +3,14 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.1.90
+Version:	1.1.91
 Release:	1
 License:	LGPL
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.1/%{name}-%{version}.tar.bz2
-# Source0-md5:	c68597f9b85525b4719d16409849b734
+# Source0-md5:	c47b1d841350538621b69c671f9108a3
 Patch0:		%{name}-CommonMakefile.patch
-Patch1:		%{name}-configure.patch
-Patch2:		%{name}-desktop.patch
+Patch1:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -26,11 +25,13 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
 BuildRequires:	nautilus-devel >= 2.9.90
 BuildRequires:	pkgconfig
+BuildRequires:	system-tools-backends >= 1.1.91
 Requires(post):	GConf2
 Requires(post):	scrollkeeper
 Requires:	/etc/pld-release
 Requires:	gtk+2 >= 2:2.6.2
 Requires:	shadow-extras
+Requires:	system-tools-backends >= 1.1.91
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -52,15 +53,8 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
-cd backends
-%{__aclocal}
-%{__autoconf}
-%{__automake}
-cd ..
-
 %{__libtoolize}
 gnome-doc-common
 %{__aclocal}
@@ -97,15 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README AUTHORS HACKING NEWS ChangeLog
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
-%attr(755,root,root) %{_datadir}/setup-tool-backends/scripts/*
-%attr(755,root,root) %{_datadir}/setup-tool-backends/files/*
-%dir %{_datadir}/setup-tool-backends
-%dir %{_datadir}/setup-tool-backends/files
-%dir %{_datadir}/setup-tool-backends/scripts
+%{_pkgconfigdir}/*.pc
 %{_desktopdir}/*.desktop
 %{_sysconfdir}/X11/sysconfig/*.desktop
 %{_datadir}/%{name}
 %{_sysconfdir}/gconf/schemas/%{name}.*
-%{_pkgconfigdir}/*.pc
 %{_omf_dest_dir}/%{name}
-%{_aclocaldir}/*.m4
