@@ -3,26 +3,28 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.33.0
+Version:	0.34.0
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.33/%{name}-%{version}.tar.bz2
-# Source0-md5:	08efc3dff61a7a988bc2f8f5da67f4b8
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.34/%{name}-%{version}.tar.bz2
+# Source0-md5:	0cd6ad61cb86cce72b86fce3e439fd17
 Patch0:		%{name}-locale-names.patch
 Patch1:		%{name}-CommonMakefile.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	GConf2-devel >= 2.6.1
+BuildRequires:	GConf2-devel >= 2.6.2
 BuildRequires:	cracklib-devel
 BuildRequires:	gnome-common >= 2.4.0
+BuildRequires:	gtk+2-devel >= 2:2.4.3
 BuildRequires:	libglade2-devel >= 1:2.4.0
-BuildRequires:	libgnomeui-devel >= 2.6.1
+BuildRequires:	libgnomeui-devel >= 2.6.1.1
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.5.11
 Requires(post):	GConf2
 Requires:	/etc/pld-release
+Requires:	gtk+2 >= 2:2.4.3
 Requires:	shadow-extras
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
