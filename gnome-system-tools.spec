@@ -3,12 +3,12 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.26.0
+Version:	0.26.1
 Release:	1
 License:	LGPL
 Group:		Applications/System
+# Source0-md5:	310e5b812ecec982365484b5fbbcca4e
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.26/%{name}-%{version}.tar.bz2
-# Source0-md5:	69976bd8653f74629201e79048447ec2
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.2.0
 BuildRequires:	libglade2-devel 
