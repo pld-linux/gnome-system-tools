@@ -3,18 +3,18 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.27.0
+Version:	0.28.0
 Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.27/%{name}-%{version}.tar.bz2
-# Source0-md5:	030ffbe535893ce27ee90bbb8e384a34
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.28/%{name}-%{version}.tar.bz2
+# Source0-md5:	992d395c50467f9995408ca51a0632de
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	GConf2-devel >= 2.2.0
-BuildRequires:	libglade2-devel
-BuildRequires:	libgnomeui-devel >= 2.3.3.1-2
-BuildRequires:	libxml2-devel >= 2.4.12
-BuildRequires:	vte-devel >= 0.10.20
+BuildRequires:	GConf2-devel >= 2.4.0.1
+BuildRequires:	libglade2-devel >= 2.0.1
+BuildRequires:	libgnomeui-devel >= 2.4.0.1
+BuildRequires:	libxml2-devel >= 2.5.11
+BuildRequires:	vte-devel >= 0.11.10
 Requires(post):	GConf2
 Requires:	/etc/pld-release
 Requires:	shadow-extras
