@@ -1,14 +1,11 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	0.24.0
-Release:	2.6
+Version:	0.25.0
+Release:	1
 License:	LGPL
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.24/%{name}-%{version}.tar.bz2
-Source1:	%{name}-pld.png
-Patch0:		%{name}-PLD.patch
-Patch1:		%{name}-pld_icon.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.25/%{name}-%{version}.tar.bz2
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.2.0
 BuildRequires:	libglade2-devel 
@@ -37,8 +34,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %configure \
@@ -50,11 +45,10 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	 DESTDIR=$RPM_BUILD_ROOT \
-	 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/%{name}/pixmaps/pld.png
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 
 %find_lang %{name} --with-gnome --all-name
 
