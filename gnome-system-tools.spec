@@ -4,7 +4,7 @@ Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	0.26.1
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Applications/System
 # Source0-md5:	310e5b812ecec982365484b5fbbcca4e
@@ -12,12 +12,12 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.26/%{name}-%{version}.
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.2.0
 BuildRequires:	libglade2-devel 
-BuildRequires:	libgnomeui-devel >= 2.0.0
+BuildRequires:	libgnomeui-devel >= 2.3.3.1-2
 BuildRequires:	libxml2-devel >= 2.4.12
 BuildRequires:	vte-devel >= 0.10.20
+Requires(post):	GConf2
 Requires:	/etc/pld-release
 Requires:	shadow-extras
-Requires(post):	GConf2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -47,7 +47,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
