@@ -8,6 +8,7 @@ Release:	1
 License:	LGPL
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.26/%{name}-%{version}.tar.bz2
+# Source0-md5:	69976bd8653f74629201e79048447ec2
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.2.0
 BuildRequires:	libglade2-devel 
