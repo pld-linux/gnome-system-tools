@@ -2,12 +2,13 @@ Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	1.2.0
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.2/%{name}-%{version}.tar.bz2
 # Source0-md5:	fbcf8866ecea8b330cbe53cf8b0df55e
 Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-locale-names.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -49,6 +50,10 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+
+# It IS required for proper translations in desktop files (merged during build)
+mv -f po/{no,nb}.po
 
 %build
 %{__libtoolize}
@@ -77,7 +82,6 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 
-rm -r $RPM_BUILD_ROOT%{_datadir}/locale/no
 rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/libnautilus-gst-shares.la
 
 %find_lang %{name} --with-gnome --all-name
