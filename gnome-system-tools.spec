@@ -1,14 +1,15 @@
+# TODO:
+# - "no" locale ?
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.2.0
-Release:	4
+Version:	1.3.1
+Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.2/%{name}-%{version}.tar.bz2
-# Source0-md5:	fbcf8866ecea8b330cbe53cf8b0df55e
+Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.3/%{name}-%{version}.tar.bz2
+# Source0-md5:	bfa7b843da2046af513bbe5929317567
 Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-locale-names.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -23,13 +24,13 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.6.17
 BuildRequires:	nautilus-devel >= 2.10.0
 BuildRequires:	pkgconfig
-BuildRequires:	system-tools-backends >= 1.2.0
+BuildRequires:	system-tools-backends >= 1.3.1
 Requires(post):	GConf2
 Requires(post):	scrollkeeper
 Requires:	/etc/pld-release
 Requires:	gtk+2 >= 2:2.6.4
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 1.2.0
+Requires:	system-tools-backends >= 1.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,10 +51,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-
-# It IS required for proper translations in desktop files (merged during build)
-mv -f po/{no,nb}.po
 
 %build
 %{__libtoolize}
