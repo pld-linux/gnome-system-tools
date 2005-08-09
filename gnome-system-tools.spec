@@ -3,12 +3,12 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.3.1
+Version:	1.3.2
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	bfa7b843da2046af513bbe5929317567
+# Source0-md5:	ce9e2a302df09672106c0be2c6850b73
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
@@ -24,13 +24,13 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.6.17
 BuildRequires:	nautilus-devel >= 2.10.0
 BuildRequires:	pkgconfig
-BuildRequires:	system-tools-backends >= 1.3.1
+BuildRequires:	system-tools-backends >= 1.3.2
 Requires(post):	GConf2
 Requires(post):	scrollkeeper
 Requires:	/etc/pld-release
 Requires:	gtk+2 >= 2:2.6.4
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 1.3.1
+Requires:	system-tools-backends >= 1.3.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
