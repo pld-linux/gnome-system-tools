@@ -3,12 +3,12 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.3.2
-Release:	2
+Version:	1.3.92
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	ce9e2a302df09672106c0be2c6850b73
+# Source0-md5:	c51a1867e130d5cdb0e389be59867a83
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
@@ -24,9 +24,10 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.6.17
 BuildRequires:	nautilus-devel >= 2.10.0
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	system-tools-backends >= 1.3.2
-Requires(post):	GConf2
-Requires(post):	scrollkeeper
+Requires(post,preun):	GConf2
+Requires(post,postun):	scrollkeeper
 Requires:	/etc/pld-release
 Requires:	gtk+2 >= 2:2.6.4
 Requires:	shadow-extras
@@ -69,7 +70,6 @@ gnome-doc-common
 	--enable-users \
 	--enable-disks \
 	--enable-share
-
 %{__make}
 
 %install
@@ -87,18 +87,22 @@ rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/libnautilus-gst-shares.l
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/usr/bin/scrollkeeper-update
-%gconf_schema_install
+%gconf_schema_install gnome-system-tools-schemas
+%scrollkeeper_update_post
 
-%postun -p /usr/bin/scrollkeeper-update
+%preun
+%gconf_schema_uninstall gnome-system-tools.schemas
+
+%postun
+%scrollkeeper_update_postun
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README AUTHORS HACKING NEWS ChangeLog
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
-%{_pkgconfigdir}/*.pc
-%{_desktopdir}/*.desktop
 %{_datadir}/%{name}
-%{_sysconfdir}/gconf/schemas/%{name}.*
+%{_desktopdir}/*.desktop
+%attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
 %{_omf_dest_dir}/%{name}
+%{_pkgconfigdir}/*.pc
+%{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
