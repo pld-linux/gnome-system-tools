@@ -4,7 +4,7 @@ Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	1.3.92
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.3/%{name}-%{version}.tar.bz2
@@ -87,7 +87,7 @@ rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/libnautilus-gst-shares.l
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%gconf_schema_install gnome-system-tools-schemas
+%gconf_schema_install gnome-system-tools.schemas
 %scrollkeeper_update_post
 
 %preun
