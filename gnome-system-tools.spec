@@ -1,14 +1,12 @@
-# TODO:
-# - "no" locale ?
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.4.0
+Version:	1.4.1
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	bbc13f526025c4da1607fa640499b6ee
+# Source0-md5:	9ede7bcadde796396a30cdb5fa347f49
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
@@ -54,8 +52,10 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch0 -p1
 
 %build
+%{__intltoolize}
+%{__glib_gettextize}
 %{__libtoolize}
-gnome-doc-common
+%{__gnome_doc_common}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
