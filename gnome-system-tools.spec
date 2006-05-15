@@ -5,8 +5,8 @@ Version:	2.14.0
 Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.13/%{name}-%{version}.tar.bz2
-# Source0-md5:	81a0d6be991bb22e72e59176d03b4653
+Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.14/%{name}-%{version}.tar.bz2
+# Source0-md5:	3aded3a37f4f5b4962bf253d25cebea1
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
