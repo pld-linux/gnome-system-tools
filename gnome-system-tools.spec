@@ -1,26 +1,26 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	1.4.1
+Version:	2.14.0
 Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/1.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	9ede7bcadde796396a30cdb5fa347f49
+Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.13/%{name}-%{version}.tar.bz2
+# Source0-md5:	81a0d6be991bb22e72e59176d03b4653
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	GConf2-devel >= 2.12.0
+BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	cracklib-devel
 BuildRequires:	gnome-common >= 2.8.0
 BuildRequires:	gtk+2-devel >= 2:2.8.3
 BuildRequires:	intltool >= 0.33
 BuildRequires:	libglade2-devel >= 1:2.5.1
-BuildRequires:	libgnomeui-devel >= 2.12.0
+BuildRequires:	libgnomeui-devel >= 2.14.0
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.6.21
-BuildRequires:	nautilus-devel >= 2.12.0
+BuildRequires:	nautilus-devel >= 2.14.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	system-tools-backends >= 1.4.0
@@ -105,6 +105,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
-%{_omf_dest_dir}/%{name}
+%{_omf_dest_dir}/*
 %{_pkgconfigdir}/*.pc
 %{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
