@@ -2,7 +2,7 @@ Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.14.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.14/%{name}-%{version}.tar.bz2
