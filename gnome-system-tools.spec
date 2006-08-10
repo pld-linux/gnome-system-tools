@@ -2,12 +2,13 @@ Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.14.0
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.14/%{name}-%{version}.tar.bz2
 # Source0-md5:	3aded3a37f4f5b4962bf253d25cebea1
 Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-locale.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -52,6 +53,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p0
 
 %build
 %{__intltoolize}
@@ -71,7 +73,8 @@ warunkach Powszechnej Licencji Publicznej GNU.
 	--enable-time \
 	--enable-users \
 	--enable-disks \
-	--enable-share
+	--enable-share \
+	LIBS="-lgnomeui-2 -lglade-2.0"
 %{__make}
 
 %install
