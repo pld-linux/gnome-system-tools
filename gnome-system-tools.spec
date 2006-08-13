@@ -1,38 +1,39 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.14.0
-Release:	5
+Version:	2.15.2
+Release:	0.1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.14/%{name}-%{version}.tar.bz2
-# Source0-md5:	3aded3a37f4f5b4962bf253d25cebea1
+Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.15/%{name}-%{version}.tar.bz2
+# Source0-md5:	a09802ddfb97ce0be7b20b7d1d2c83d3
 Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-locale.patch
 URL:		http://www.gnome.org/projects/gst/
+BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	cracklib-devel
-BuildRequires:	gnome-common >= 2.8.0
-BuildRequires:	gtk+2-devel >= 2:2.8.3
-BuildRequires:	intltool >= 0.33
-BuildRequires:	libglade2-devel >= 1:2.5.1
-BuildRequires:	libgnomeui-devel >= 2.14.0
+BuildRequires:	dbus-devel >= 0.91
+BuildRequires:	gnome-common >= 2.12.0
+BuildRequires:	gtk+2-devel >= 2:2.10.1
+BuildRequires:	intltool >= 0.35.0
+BuildRequires:	libglade2-devel >= 1:2.6.0
+BuildRequires:	libgnomeui-devel >= 2.15.91
+BuildRequires:	liboobs-devel >= 0.2.0
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel >= 2.6.21
-BuildRequires:	nautilus-devel >= 2.14.0
+BuildRequires:	libxml2-devel >= 2.6.26
+BuildRequires:	nautilus-devel >= 2.15.91
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.197
-BuildRequires:	system-tools-backends >= 1.4.0
+BuildRequires:	system-tools-backends >= 1.9.3
 Requires(post,preun):	GConf2
 Requires(post,postun):	scrollkeeper
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.8.3
-Requires:	libgnomeui >= 2.14.0
-Requires:	nautilus-libs >= 2.14
+Requires:	gtk+2 >= 2:2.10.1
+Requires:	libgnomeui >= 2.15.91
+Requires:	nautilus-libs >= 2.15.91
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 1.4.0
+Requires:	system-tools-backends >= 1.9.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -53,7 +54,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p0
 
 %build
 %{__intltoolize}
@@ -73,8 +73,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 	--enable-time \
 	--enable-users \
 	--enable-disks \
-	--enable-share \
-	LIBS="-lgnomeui-2 -lglade-2.0"
+	--enable-shares
 %{__make}
 
 %install
@@ -85,8 +84,6 @@ rm -rf $RPM_BUILD_ROOT
 	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 
 rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/libnautilus-gst-shares.la
-
-rm -r $RPM_BUILD_ROOT%{_datadir}/locale/no
 
 %find_lang %{name} --with-gnome --all-name
 
