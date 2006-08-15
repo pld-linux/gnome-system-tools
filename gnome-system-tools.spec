@@ -2,7 +2,7 @@ Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.15.2
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.15/%{name}-%{version}.tar.bz2
@@ -25,7 +25,7 @@ BuildRequires:	libxml2-devel >= 2.6.26
 BuildRequires:	nautilus-devel >= 2.15.91
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.197
-BuildRequires:	system-tools-backends >= 1.9.3
+BuildRequires:	system-tools-backends >= 1.9.3-2
 Requires(post,preun):	GConf2
 Requires(post,postun):	scrollkeeper
 Requires:	/etc/pld-release
@@ -33,7 +33,7 @@ Requires:	gtk+2 >= 2:2.10.1
 Requires:	libgnomeui >= 2.15.91
 Requires:	nautilus-libs >= 2.15.91
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 1.9.3
+Requires:	system-tools-backends >= 1.9.3-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
