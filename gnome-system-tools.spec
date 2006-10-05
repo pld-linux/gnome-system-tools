@@ -1,12 +1,12 @@
 Summary:	GNOME System Tools
 Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.15.4
+Version:	2.15.5
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.15/%{name}-%{version}.tar.bz2
-# Source0-md5:	6a9fab9dfab0623ea546d3ef876ef743
+# Source0-md5:	1711d3eb5f784551b2d68ce9b6afb77a
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.14.0
@@ -15,25 +15,25 @@ BuildRequires:	automake
 BuildRequires:	cracklib-devel
 BuildRequires:	dbus-devel >= 0.91
 BuildRequires:	gnome-common >= 2.12.0
-BuildRequires:	gtk+2-devel >= 2:2.10.3
+BuildRequires:	gtk+2-devel >= 2:2.10.6
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libglade2-devel >= 1:2.6.0
-BuildRequires:	libgnomeui-devel >= 2.16.0
-BuildRequires:	liboobs-devel >= 0.4.0
+BuildRequires:	libgnomeui-devel >= 2.16.1
+BuildRequires:	liboobs-devel >= 0.5.0
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.6.26
-BuildRequires:	nautilus-devel >= 2.16.0
+BuildRequires:	nautilus-devel >= 2.16.1
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.197
-BuildRequires:	system-tools-backends >= 1.9.5.1
+BuildRequires:	system-tools-backends >= 1.9.6
 Requires(post,preun):	GConf2
 Requires(post,postun):	scrollkeeper
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.10.3
-Requires:	libgnomeui >= 2.16.0
-Requires:	nautilus-libs >= 2.16.0
+Requires:	gtk+2 >= 2:2.10.6
+Requires:	libgnomeui >= 2.16.1
+Requires:	nautilus-libs >= 2.16.1
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 1.9.5.1
+Requires:	system-tools-backends >= 1.9.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
