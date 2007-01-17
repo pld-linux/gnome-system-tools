@@ -1,0 +1,54 @@
+--- gnome-system-tools-2.14.0/po/hu.po~	2006-02-24 23:46:55.000000000 +0100
++++ gnome-system-tools-2.14.0/po/hu.po	2007-01-17 16:41:22.000000000 +0100
+@@ -1695,7 +1695,6 @@
+ msgid "To be valid, the group name should have less than %d character"
+ msgid_plural "To be valid, the group name should have less than %d characters"
+ msgstr[0] "Az érvényességhez a csoportnévnek kevesebb, mint %d karakterből kell állnia"
+-msgstr[1] "Az érvényességhez a csoportnévnek kevesebb, mint %d karakterből kell állnia"
+ 
+ #. if invalid.
+ #: ../src/users/group-settings.c:209
+@@ -1876,7 +1875,6 @@
+ msgid "To be valid, the user name should have less than %d character"
+ msgid_plural "To be valid, the user name should have less than %d characters"
+ msgstr[0] "Az érvényességhez a felhasználónévnek kevesebb, mint %d karakterből kell állnia"
+-msgstr[1] "Az érvényességhez a felhasználónévnek kevesebb, mint %d karakterből kell állnia"
+ 
+ #: ../src/users/user-settings.c:310
+ msgid "User name for the \"root\" user should not be modified"
+--- gnome-system-tools-2.14.0/po/th.po~	2006-01-31 12:55:39.000000000 +0100
++++ gnome-system-tools-2.14.0/po/th.po	2007-01-17 16:42:01.000000000 +0100
+@@ -1665,7 +1665,6 @@
+ msgid "To be valid, the group name should have less than %d character"
+ msgid_plural "To be valid, the group name should have less than %d characters"
+ msgstr[0] "ชื่อกลุ่มผู้ใช้ควรยาวไม่เกิน %d ตัวอักษร"
+-msgstr[1] "ชื่อกลุ่มผู้ใช้ควรยาวไม่เกิน %d ตัวอักษร"
+ 
+ #. if invalid.
+ #: src/users/group-settings.c:209
+@@ -1842,7 +1841,6 @@
+ msgid "To be valid, the user name should have less than %d character"
+ msgid_plural "To be valid, the user name should have less than %d characters"
+ msgstr[0] "ชื่อผู้ใช้ควรยาวไม่เกิน %d ตัวอักษร"
+-msgstr[1] "ชื่อผู้ใช้ควรยาวไม่เกิน %d ตัวอักษร"
+ 
+ #: src/users/user-settings.c:310
+ msgid "User name for the \"root\" user should not be modified"
+--- gnome-system-tools-2.14.0/po/ja.po~	2006-02-25 06:18:07.000000000 +0100
++++ gnome-system-tools-2.14.0/po/ja.po	2007-01-17 17:03:39.000000000 +0100
+@@ -1700,7 +1700,6 @@
+ msgid "To be valid, the group name should have less than %d character"
+ msgid_plural "To be valid, the group name should have less than %d characters"
+ msgstr[0] "ユーザ名は %d文字より少なくして下さい。"
+-msgstr[1] "ユーザ名は %d文字より少なくして下さい。"
+ 
+ #. if invalid.
+ #: ../src/users/group-settings.c:209
+@@ -1883,7 +1882,6 @@
+ msgid "To be valid, the user name should have less than %d character"
+ msgid_plural "To be valid, the user name should have less than %d characters"
+ msgstr[0] "ユーザ名は %d文字より少なくして下さい。"
+-msgstr[1] "ユーザ名は %d文字より少なくして下さい。"
+ 
+ #: ../src/users/user-settings.c:310
+ msgid "User name for the \"root\" user should not be modified"
