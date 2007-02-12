@@ -1,5 +1,5 @@
 Summary:	GNOME System Tools
-Summary(pl):	GNOME System Tools - narzêdzia systemowe GNOME
+Summary(pl.UTF-8):   GNOME System Tools - narzÄ™dzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.14.0
 Release:	6
@@ -43,12 +43,12 @@ They're thought to help from the new Linux or UNIX user to the system
 administrators. The GNOME System Tools are free software, licensed
 under the terms of the GNU General Public License.
 
-%description -l pl
-GST (GNOME System Tools) to w pe³ni zintegrowany zestaw narzêdzi,
-których celem jest u³atwienie prac administracyjnych pod systemem
-uniksowym lub linuksowym. S± pomy¶lane tak, aby pomóc nowym
-u¿ytkownikom Linuksa lub Uniksa w administrowaniu systemem. GNOME
-System Tools to wolnodostêpne oprogramowanie, licencjonowane na
+%description -l pl.UTF-8
+GST (GNOME System Tools) to w peÅ‚ni zintegrowany zestaw narzÄ™dzi,
+ktÃ³rych celem jest uÅ‚atwienie prac administracyjnych pod systemem
+uniksowym lub linuksowym. SÄ… pomyÅ›lane tak, aby pomÃ³c nowym
+uÅ¼ytkownikom Linuksa lub Uniksa w administrowaniu systemem. GNOME
+System Tools to wolnodostÄ™pne oprogramowanie, licencjonowane na
 warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
