@@ -1,5 +1,5 @@
 Summary:	GNOME System Tools
-Summary(pl.UTF-8):   GNOME System Tools - narzędzia systemowe GNOME
+Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.14.0
 Release:	6
