@@ -1,44 +1,20 @@
-diff -urN gnome-system-tools-2.13.2.orig/src/boot/boot.desktop.in.in gnome-system-tools-2.13.2/src/boot/boot.desktop.in.in
---- gnome-system-tools-2.13.2.orig/src/boot/boot.desktop.in.in	2006-02-18 23:34:43.803832000 +0100
-+++ gnome-system-tools-2.13.2/src/boot/boot.desktop.in.in	2006-02-19 00:02:29.293832000 +0100
+diff -urN gnome-system-tools-2.17.92/src/network/network.desktop.in.in gnome-system-tools-2.17.92.new/src/network/network.desktop.in.in
+--- gnome-system-tools-2.17.92/src/network/network.desktop.in.in	2007-02-24 18:23:24.000000000 +0100
++++ gnome-system-tools-2.17.92.new/src/network/network.desktop.in.in	2007-03-10 17:52:54.000000000 +0100
 @@ -5,7 +5,7 @@
- Icon=@pixmapsdir@/boot.png
+ Icon=gnome-fs-network
  Terminal=false
  Type=Application
--Categories=GNOME;GTK;Application;System;Settings;
-+Categories=GNOME;GTK;System;Settings;X-Capplet;
- X-GNOME-Bugzilla-Bugzilla=GNOME
- X-GNOME-Bugzilla-Product=gnome-system-tools
- X-GNOME-Bugzilla-Component=boot-admin
-diff -urN gnome-system-tools-2.13.2.orig/src/disks/disks.desktop.in.in gnome-system-tools-2.13.2/src/disks/disks.desktop.in.in
---- gnome-system-tools-2.13.2.orig/src/disks/disks.desktop.in.in	2006-02-18 23:34:43.803832000 +0100
-+++ gnome-system-tools-2.13.2/src/disks/disks.desktop.in.in	2006-02-19 00:02:05.303832000 +0100
-@@ -5,7 +5,7 @@
- Icon=@pixmapsdir@/disks.png
- Terminal=false
- Type=Application
--Categories=GNOME;GTK;Application;System;Settings;
-+Categories=GNOME;GTK;System;Settings;X-Capplet;
- X-GNOME-Bugzilla-Bugzilla=GNOME
- X-GNOME-Bugzilla-Product=gnome-system-tools
- X-GNOME-Bugzilla-Component=disks-admin
-diff -urN gnome-system-tools-2.13.2.orig/src/network/network.desktop.in.in gnome-system-tools-2.13.2/src/network/network.desktop.in.in
---- gnome-system-tools-2.13.2.orig/src/network/network.desktop.in.in	2006-02-18 23:34:43.803832000 +0100
-+++ gnome-system-tools-2.13.2/src/network/network.desktop.in.in	2006-02-19 00:01:43.583832000 +0100
-@@ -5,7 +5,7 @@
- Icon=@pixmapsdir@/network.png
- Terminal=false
- Type=Application
--Categories=GNOME;GTK;Application;System;Settings;
-+Categories=GNOME;GTK;System;Settings;X-Capplet;
+-Categories=GNOME;GTK;Application;System;Settings;X-GNOME-NetworkSettings;
++Categories=GNOME;GTK;System;Settings;X-GNOME-NetworkSettings;X-Capplet;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=network-admin
-diff -urN gnome-system-tools-2.13.2.orig/src/services/services.desktop.in.in gnome-system-tools-2.13.2/src/services/services.desktop.in.in
---- gnome-system-tools-2.13.2.orig/src/services/services.desktop.in.in	2006-02-18 23:34:43.813832000 +0100
-+++ gnome-system-tools-2.13.2/src/services/services.desktop.in.in	2006-02-19 00:02:54.893832000 +0100
+diff -urN gnome-system-tools-2.17.92/src/services/services.desktop.in.in gnome-system-tools-2.17.92.new/src/services/services.desktop.in.in
+--- gnome-system-tools-2.17.92/src/services/services.desktop.in.in	2007-02-24 18:23:23.000000000 +0100
++++ gnome-system-tools-2.17.92.new/src/services/services.desktop.in.in	2007-03-10 17:53:16.000000000 +0100
 @@ -5,7 +5,7 @@
- Icon=@pixmapsdir@/services.png
+ Icon=gnome-fs-server
  Terminal=false
  Type=Application
 -Categories=GNOME;GTK;Application;System;Settings;
@@ -46,23 +22,23 @@ diff -urN gnome-system-tools-2.13.2.orig/src/services/services.desktop.in.in gno
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=runlevel-admin
-diff -urN gnome-system-tools-2.13.2.orig/src/shares/shares.desktop.in.in gnome-system-tools-2.13.2/src/shares/shares.desktop.in.in
---- gnome-system-tools-2.13.2.orig/src/shares/shares.desktop.in.in	2006-02-18 23:34:43.813832000 +0100
-+++ gnome-system-tools-2.13.2/src/shares/shares.desktop.in.in	2006-02-19 00:02:47.813832000 +0100
+diff -urN gnome-system-tools-2.17.92/src/shares/shares.desktop.in.in gnome-system-tools-2.17.92.new/src/shares/shares.desktop.in.in
+--- gnome-system-tools-2.17.92/src/shares/shares.desktop.in.in	2007-02-24 18:23:23.000000000 +0100
++++ gnome-system-tools-2.17.92.new/src/shares/shares.desktop.in.in	2007-03-10 17:53:40.000000000 +0100
 @@ -5,7 +5,7 @@
- Icon=@pixmapsdir@/shares.png
+ Icon=gnome-fs-share
  Terminal=false
  Type=Application
--Categories=GNOME;GTK;Application;System;Settings;
-+Categories=GNOME;GTK;System;Settings;X-Capplet;
+-Categories=GNOME;GTK;Application;System;Settings;X-GNOME-NetworkSettings;
++Categories=GNOME;GTK;System;Settings;X-GNOME-NetworkSettings;X-Capplet;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=shares-admin
-diff -urN gnome-system-tools-2.13.2.orig/src/time/time.desktop.in.in gnome-system-tools-2.13.2/src/time/time.desktop.in.in
---- gnome-system-tools-2.13.2.orig/src/time/time.desktop.in.in	2006-02-18 23:34:43.813832000 +0100
-+++ gnome-system-tools-2.13.2/src/time/time.desktop.in.in	2006-02-18 23:59:20.093832000 +0100
+diff -urN gnome-system-tools-2.17.92/src/time/time.desktop.in.in gnome-system-tools-2.17.92.new/src/time/time.desktop.in.in
+--- gnome-system-tools-2.17.92/src/time/time.desktop.in.in	2007-02-24 18:23:25.000000000 +0100
++++ gnome-system-tools-2.17.92.new/src/time/time.desktop.in.in	2007-03-10 17:53:59.000000000 +0100
 @@ -5,7 +5,7 @@
- Icon=@pixmapsdir@/time.png
+ Icon=config-date
  Terminal=false
  Type=Application
 -Categories=GNOME;GTK;Application;System;Settings;
@@ -70,11 +46,11 @@ diff -urN gnome-system-tools-2.13.2.orig/src/time/time.desktop.in.in gnome-syste
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=time-admin
-diff -urN gnome-system-tools-2.13.2.orig/src/users/users.desktop.in.in gnome-system-tools-2.13.2/src/users/users.desktop.in.in
---- gnome-system-tools-2.13.2.orig/src/users/users.desktop.in.in	2006-02-18 23:34:43.813832000 +0100
-+++ gnome-system-tools-2.13.2/src/users/users.desktop.in.in	2006-02-18 23:58:55.753832000 +0100
+diff -urN gnome-system-tools-2.17.92/src/users/users.desktop.in.in gnome-system-tools-2.17.92.new/src/users/users.desktop.in.in
+--- gnome-system-tools-2.17.92/src/users/users.desktop.in.in	2007-02-24 18:23:23.000000000 +0100
++++ gnome-system-tools-2.17.92.new/src/users/users.desktop.in.in	2007-03-10 17:54:16.000000000 +0100
 @@ -5,7 +5,7 @@
- Icon=@pixmapsdir@/users.png
+ Icon=config-users
  Terminal=false
  Type=Application
 -Categories=GNOME;GTK;Application;System;Settings;
