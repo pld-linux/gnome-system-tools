@@ -1,12 +1,12 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.17.92
+Version:	2.18.0
 Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.17/%{name}-%{version}.tar.bz2
-# Source0-md5:	4dbaf50f0f6dd3722752245ffaa3b400
+Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.18/%{name}-%{version}.tar.bz2
+# Source0-md5:	af305872b4bd72802915b007a7015010
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.18.0.1
@@ -19,11 +19,11 @@ BuildRequires:	gtk+2-devel >= 2:2.10.9
 BuildRequires:	intltool >= 0.35.5
 BuildRequires:	libart_lgpl-devel >= 2.3.19
 BuildRequires:	libglade2-devel >= 1:2.6.0
-BuildRequires:	libgnomeui-devel >= 2.17.92
+BuildRequires:	libgnomeui-devel >= 2.18.0
 BuildRequires:	libiw-devel
-BuildRequires:	liboobs-devel >= 2.17.92
+BuildRequires:	liboobs-devel >= 2.18.0
 BuildRequires:	libtool
-BuildRequires:	nautilus-devel >= 2.17.92
+BuildRequires:	nautilus-devel >= 2.18.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
@@ -32,9 +32,9 @@ Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
 Requires:	gtk+2 >= 2:2.10.9
-Requires:	libgnomeui >= 2.17.92
-Requires:	liboobs >= 2.17.92
-Requires:	nautilus-libs >= 2.17.92
+Requires:	libgnomeui >= 2.18.0
+Requires:	liboobs >= 2.18.0
+Requires:	nautilus-libs >= 2.18.0
 Requires:	shadow-extras
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
