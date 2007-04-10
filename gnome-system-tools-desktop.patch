@@ -1,59 +1,54 @@
-diff -urN gnome-system-tools-2.17.92/src/network/network.desktop.in.in gnome-system-tools-2.17.92.new/src/network/network.desktop.in.in
---- gnome-system-tools-2.17.92/src/network/network.desktop.in.in	2007-02-24 18:23:24.000000000 +0100
-+++ gnome-system-tools-2.17.92.new/src/network/network.desktop.in.in	2007-03-10 17:52:54.000000000 +0100
+--- src/network/network.desktop.in.in.orig	2007-04-09 01:41:00.000000000 +0200
++++ src/network/network.desktop.in.in	2007-04-10 20:58:44.000000000 +0200
 @@ -5,7 +5,7 @@
  Icon=gnome-fs-network
  Terminal=false
  Type=Application
--Categories=GNOME;GTK;Application;System;Settings;X-GNOME-NetworkSettings;
-+Categories=GNOME;GTK;System;Settings;X-GNOME-NetworkSettings;X-Capplet;
+-Categories=GNOME;GTK;System;Settings;
++Categories=Categories=GNOME;GTK;System;Settings;X-GNOME-NetworkSettings;X-Capplet;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=network-admin
-diff -urN gnome-system-tools-2.17.92/src/services/services.desktop.in.in gnome-system-tools-2.17.92.new/src/services/services.desktop.in.in
---- gnome-system-tools-2.17.92/src/services/services.desktop.in.in	2007-02-24 18:23:23.000000000 +0100
-+++ gnome-system-tools-2.17.92.new/src/services/services.desktop.in.in	2007-03-10 17:53:16.000000000 +0100
+--- src/services/services.desktop.in.in.orig	2007-04-09 01:41:00.000000000 +0200
++++ src/services/services.desktop.in.in	2007-04-10 20:59:26.000000000 +0200
 @@ -5,7 +5,7 @@
  Icon=gnome-fs-server
  Terminal=false
  Type=Application
--Categories=GNOME;GTK;Application;System;Settings;
+-Categories=GNOME;GTK;System;Settings;
 +Categories=GNOME;GTK;System;Settings;X-Capplet;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=runlevel-admin
-diff -urN gnome-system-tools-2.17.92/src/shares/shares.desktop.in.in gnome-system-tools-2.17.92.new/src/shares/shares.desktop.in.in
---- gnome-system-tools-2.17.92/src/shares/shares.desktop.in.in	2007-02-24 18:23:23.000000000 +0100
-+++ gnome-system-tools-2.17.92.new/src/shares/shares.desktop.in.in	2007-03-10 17:53:40.000000000 +0100
+--- src/shares/shares.desktop.in.in.orig	2007-04-09 01:41:00.000000000 +0200
++++ src/shares/shares.desktop.in.in	2007-04-10 21:00:07.000000000 +0200
 @@ -5,7 +5,7 @@
  Icon=gnome-fs-share
  Terminal=false
  Type=Application
--Categories=GNOME;GTK;Application;System;Settings;X-GNOME-NetworkSettings;
-+Categories=GNOME;GTK;System;Settings;X-GNOME-NetworkSettings;X-Capplet;
+-Categories=GNOME;GTK;System;Settings;
++Categories=Categories=GNOME;GTK;System;Settings;X-GNOME-NetworkSettings;X-Capplet;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=shares-admin
-diff -urN gnome-system-tools-2.17.92/src/time/time.desktop.in.in gnome-system-tools-2.17.92.new/src/time/time.desktop.in.in
---- gnome-system-tools-2.17.92/src/time/time.desktop.in.in	2007-02-24 18:23:25.000000000 +0100
-+++ gnome-system-tools-2.17.92.new/src/time/time.desktop.in.in	2007-03-10 17:53:59.000000000 +0100
+--- src/time/time.desktop.in.in.orig	2007-04-09 01:41:00.000000000 +0200
++++ src/time/time.desktop.in.in	2007-04-10 21:00:35.000000000 +0200
 @@ -5,7 +5,7 @@
  Icon=config-date
  Terminal=false
  Type=Application
--Categories=GNOME;GTK;Application;System;Settings;
+-Categories=GNOME;GTK;System;Settings;
 +Categories=GNOME;GTK;System;Settings;X-Capplet;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
  X-GNOME-Bugzilla-Component=time-admin
-diff -urN gnome-system-tools-2.17.92/src/users/users.desktop.in.in gnome-system-tools-2.17.92.new/src/users/users.desktop.in.in
---- gnome-system-tools-2.17.92/src/users/users.desktop.in.in	2007-02-24 18:23:23.000000000 +0100
-+++ gnome-system-tools-2.17.92.new/src/users/users.desktop.in.in	2007-03-10 17:54:16.000000000 +0100
+--- src/users/users.desktop.in.in.orig	2007-04-09 01:41:00.000000000 +0200
++++ src/users/users.desktop.in.in	2007-04-10 21:01:03.000000000 +0200
 @@ -5,7 +5,7 @@
  Icon=config-users
  Terminal=false
  Type=Application
--Categories=GNOME;GTK;Application;System;Settings;
+-Categories=GNOME;GTK;System;Settings;
 +Categories=GNOME;GTK;System;Settings;X-Capplet;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=gnome-system-tools
