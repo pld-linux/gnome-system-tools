@@ -1,39 +1,41 @@
 Summary:	GNOME System Tools
-Summary(pl.UTF-8):   GNOME System Tools - narzędzia systemowe GNOME
+Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.15.5
-Release:	1
+Version:	2.19.91
+Release:	0.1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.15/%{name}-%{version}.tar.bz2
-# Source0-md5:	1711d3eb5f784551b2d68ce9b6afb77a
-Patch0:		%{name}-desktop.patch
+Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.19/%{name}-%{version}.tar.bz2
+# Source0-md5:	e2e1f9a275b182ff2e491405cc0f2dbc
+#Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	GConf2-devel >= 2.14.0
+BuildRequires:	GConf2-devel >= 2.18.0.1
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	cracklib-devel
-BuildRequires:	dbus-devel >= 0.91
+BuildRequires:	dbus-devel >= 1.0.2
 BuildRequires:	gnome-common >= 2.12.0
-BuildRequires:	gtk+2-devel >= 2:2.10.6
-BuildRequires:	intltool >= 0.35.0
+BuildRequires:	gnome-doc-utils >= 0.9.2
+BuildRequires:	gtk+2-devel >= 2:2.10.9
+BuildRequires:	intltool >= 0.35.5
+BuildRequires:	libart_lgpl-devel >= 2.3.19
 BuildRequires:	libglade2-devel >= 1:2.6.0
-BuildRequires:	libgnomeui-devel >= 2.16.1
-BuildRequires:	liboobs-devel >= 0.5.0
+BuildRequires:	libgnomeui-devel >= 2.18.1
+BuildRequires:	libiw-devel
+BuildRequires:	liboobs-devel >= 2.19.91
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel >= 2.6.26
-BuildRequires:	nautilus-devel >= 2.16.1
+BuildRequires:	nautilus-devel >= 2.18.1
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.197
-BuildRequires:	system-tools-backends >= 1.9.6
-Requires(post,preun):	GConf2
+BuildRequires:	rpmbuild(macros) >= 1.311
+Requires(post,postun):	gtk+2
+Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
+Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.10.6
-Requires:	libgnomeui >= 2.16.1
-Requires:	nautilus-libs >= 2.16.1
+Requires:	gtk+2 >= 2:2.10.9
+Requires:	libgnomeui >= 2.18.0
+Requires:	liboobs >= 2.19.91
+Requires:	nautilus-libs >= 2.18.1
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 1.9.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -53,7 +55,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p0
 
 %build
 %{__intltoolize}
@@ -64,16 +66,15 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %{__autoconf}
 %{__automake}
 %configure \
-	--disable-schemas-install \
 	--disable-scrollkeeper \
-	--enable-platform-gnome-2 \
+	--disable-schemas-install \
+	--enable-gnome \
 	--disable-static \
-	--enable-boot \
 	--enable-network \
 	--enable-services \
 	--enable-time \
 	--enable-users \
-	--enable-disks \
+	--enable-nautilus \
 	--enable-shares
 %{__make}
 
@@ -81,8 +82,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
+	DESTDIR=$RPM_BUILD_ROOT
 
 rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/libnautilus-gst-shares.la
 
@@ -94,12 +94,14 @@ rm -rf $RPM_BUILD_ROOT
 %post
 %gconf_schema_install gnome-system-tools.schemas
 %scrollkeeper_update_post
+%update_icon_cache hicolor
 
 %preun
 %gconf_schema_uninstall gnome-system-tools.schemas
 
 %postun
 %scrollkeeper_update_postun
+%update_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -111,3 +113,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_omf_dest_dir}/*
 %{_pkgconfigdir}/*.pc
 %{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
+%{_iconsdir}/hicolor/*/*/*.png
