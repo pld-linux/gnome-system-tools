@@ -1,12 +1,12 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.19.91
+Version:	2.19.92
 Release:	0.1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.19/%{name}-%{version}.tar.bz2
-# Source0-md5:	e2e1f9a275b182ff2e491405cc0f2dbc
+# Source0-md5:	15c0364b18bc1a519ad82f404f315f86
 #Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.18.0.1
