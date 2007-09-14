@@ -1,29 +1,27 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.18.1
+Version:	2.20.0
 Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/gnome/sources/gnome-system-tools/2.18/%{name}-%{version}.tar.bz2
-# Source0-md5:	e55a1a37084fe4f5739109e00af81b86
-Patch0:		%{name}-desktop.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.20/%{name}-%{version}.tar.bz2
+# Source0-md5:	382ed1f5ad4cb6ce7b88985611e2be18
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	GConf2-devel >= 2.18.0.1
+BuildRequires:	GConf2-devel >= 2.19.1
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.0.2
 BuildRequires:	gnome-common >= 2.12.0
-BuildRequires:	gnome-doc-utils >= 0.9.2
-BuildRequires:	gtk+2-devel >= 2:2.10.9
-BuildRequires:	intltool >= 0.35.5
-BuildRequires:	libart_lgpl-devel >= 2.3.19
-BuildRequires:	libglade2-devel >= 1:2.6.0
-BuildRequires:	libgnomeui-devel >= 2.18.1
+BuildRequires:	gnome-doc-utils >= 0.11.2
+BuildRequires:	gtk+2-devel >= 2:2.12.0
+BuildRequires:	intltool >= 0.36.1
+BuildRequires:	libglade2-devel >= 1:2.6.2
+BuildRequires:	libgnomeui-devel >= 2.19.1
 BuildRequires:	libiw-devel
-BuildRequires:	liboobs-devel >= 2.18.1
+BuildRequires:	liboobs-devel >= 2.20.0
 BuildRequires:	libtool
-BuildRequires:	nautilus-devel >= 2.18.1
+BuildRequires:	nautilus-devel >= 2.19.91
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
@@ -31,10 +29,10 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.10.9
-Requires:	libgnomeui >= 2.18.0
-Requires:	liboobs >= 2.18.1
-Requires:	nautilus-libs >= 2.18.1
+Requires:	gtk+2 >= 2:2.12.0
+Requires:	libgnomeui >= 2.19.1
+Requires:	liboobs >= 2.20.0
+Requires:	nautilus-libs >= 2.19.91
 Requires:	shadow-extras
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,7 +53,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 %{__intltoolize}
@@ -68,23 +65,21 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %configure \
 	--disable-scrollkeeper \
 	--disable-schemas-install \
-	--enable-platform-gnome-2 \
+	--enable-gnome \
 	--disable-static \
-	--enable-boot \
 	--enable-network \
 	--enable-services \
 	--enable-time \
 	--enable-users \
-	--enable-disks \
-	--enable-share
+	--enable-nautilus \
+	--enable-shares
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
+	DESTDIR=$RPM_BUILD_ROOT
 
 rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/libnautilus-gst-shares.la
 
@@ -112,7 +107,46 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
-%{_omf_dest_dir}/*
 %{_pkgconfigdir}/*.pc
 %{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
 %{_iconsdir}/hicolor/*/*/*.png
+%dir %{_omf_dest_dir}/%{name}
+%lang(nl) %{_omf_dest_dir}/%{name}/services-admin-nl.omf
+%lang(nl) %{_omf_dest_dir}/%{name}/time-admin-nl.omf
+%dir %{_omf_dest_dir}/network-admin
+%{_omf_dest_dir}/network-admin/network-admin-C.omf
+%lang(ca) %{_omf_dest_dir}/network-admin/network-admin-ca.omf
+%lang(es) %{_omf_dest_dir}/network-admin/network-admin-es.omf
+%lang(fr) %{_omf_dest_dir}/network-admin/network-admin-fr.omf
+%lang(oc) %{_omf_dest_dir}/network-admin/network-admin-oc.omf
+%lang(sv) %{_omf_dest_dir}/network-admin/network-admin-sv.omf
+%dir %{_omf_dest_dir}/services-admin
+%{_omf_dest_dir}/services-admin/services-admin-C.omf
+%lang(ca) %{_omf_dest_dir}/services-admin/services-admin-ca.omf
+%lang(es) %{_omf_dest_dir}/services-admin/services-admin-es.omf
+%lang(fr) %{_omf_dest_dir}/services-admin/services-admin-fr.omf
+%lang(oc) %{_omf_dest_dir}/services-admin/services-admin-oc.omf
+%lang(sv) %{_omf_dest_dir}/services-admin/services-admin-sv.omf
+%dir %{_omf_dest_dir}/shares-admin
+%{_omf_dest_dir}/shares-admin/shares-admin-C.omf
+%lang(ca) %{_omf_dest_dir}/shares-admin/shares-admin-ca.omf
+%lang(es) %{_omf_dest_dir}/shares-admin/shares-admin-es.omf
+%lang(fr) %{_omf_dest_dir}/shares-admin/shares-admin-fr.omf
+%lang(oc) %{_omf_dest_dir}/shares-admin/shares-admin-oc.omf
+%lang(sv) %{_omf_dest_dir}/shares-admin/shares-admin-sv.omf
+%dir %{_omf_dest_dir}/time-admin
+%{_omf_dest_dir}/time-admin/time-admin-C.omf
+%lang(ca) %{_omf_dest_dir}/time-admin/time-admin-ca.omf
+%lang(es) %{_omf_dest_dir}/time-admin/time-admin-es.omf
+%lang(fr) %{_omf_dest_dir}/time-admin/time-admin-fr.omf
+%lang(oc) %{_omf_dest_dir}/time-admin/time-admin-oc.omf
+%lang(ru) %{_omf_dest_dir}/time-admin/time-admin-ru.omf
+%lang(sv) %{_omf_dest_dir}/time-admin/time-admin-sv.omf
+%dir %{_omf_dest_dir}/users-admin
+%{_omf_dest_dir}/users-admin/users-admin-C.omf
+%lang(ca) %{_omf_dest_dir}/users-admin/users-admin-ca.omf
+%lang(es) %{_omf_dest_dir}/users-admin/users-admin-es.omf
+%lang(fr) %{_omf_dest_dir}/users-admin/users-admin-fr.omf
+%lang(oc) %{_omf_dest_dir}/users-admin/users-admin-oc.omf
+%lang(ru) %{_omf_dest_dir}/users-admin/users-admin-ru.omf
+%lang(sv) %{_omf_dest_dir}/users-admin/users-admin-sv.omf
