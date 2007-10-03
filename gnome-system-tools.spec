@@ -34,6 +34,7 @@ Requires:	libgnomeui >= 2.19.1
 Requires:	liboobs >= 2.20.0
 Requires:	nautilus-libs >= 2.19.91
 Requires:	shadow-extras
+Requires:   system-tools-backends
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
