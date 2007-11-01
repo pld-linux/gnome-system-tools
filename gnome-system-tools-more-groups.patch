@@ -1,0 +1,21 @@
+diff -urN gnome-system-tools-2.20.0/src/users/privileges-table.c gnome-system-tools-2.20.0.new/src/users/privileges-table.c
+--- gnome-system-tools-2.20.0/src/users/privileges-table.c	2007-09-14 11:25:27.000000000 +0200
++++ gnome-system-tools-2.20.0.new/src/users/privileges-table.c	2007-11-01 20:46:25.000000000 +0100
+@@ -50,13 +50,17 @@
+ 	{ "admin", N_("Administer the system") },
+ 	{ "audio", N_("Use audio devices") },
+ 	{ "cdrom", N_("Use CD-ROM drives") },
++	{ "cdwrite", N_("Burn CDs / DVDs") },
+ 	{ "dialout", N_("Use modems") },
+ 	{ "dip", N_("Connect to Internet using a modem") },
+ 	{ "fax", N_("Send and receive faxes") },
+ 	{ "floppy", N_("Use floppy drives") },
+ 	{ "plugdev", N_("Access external storage devices automatically") },
++	{ "proc", N_("Access /proc filesystem") },
+ 	{ "scanner", N_("Use scanners") },
+ 	{ "tape", N_("Use tape drives") },
++	{ "usb", N_("Use USB devices") },
++	{ "video", N_("Use video devices") },
+ 	{ "wheel", N_("Be able to get administrator privileges") },
+ };
+ 
