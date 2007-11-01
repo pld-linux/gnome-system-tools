@@ -8,6 +8,7 @@ Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.20/%{name}-%{version}.tar.bz2
 # Source0-md5:	382ed1f5ad4cb6ce7b88985611e2be18
 Patch0:		%{name}-more-groups.patch
+Patch1:		%{name}-more-services.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.19.1
 BuildRequires:	autoconf >= 2.52
@@ -56,6 +57,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__intltoolize}
