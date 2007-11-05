@@ -10,7 +10,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.20/%{name}-
 Patch0:		%{name}-more-groups.patch
 Patch1:		%{name}-more-services.patch
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	GConf2-devel >= 2.19.1
+BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.0.2
@@ -19,12 +19,14 @@ BuildRequires:	gnome-doc-utils >= 0.11.2
 BuildRequires:	gtk+2-devel >= 2:2.12.0
 BuildRequires:	intltool >= 0.36.1
 BuildRequires:	libglade2-devel >= 1:2.6.2
-BuildRequires:	libgnomeui-devel >= 2.19.1
+BuildRequires:	libgnomeui-devel >= 2.20.0
 BuildRequires:	libiw-devel
 BuildRequires:	liboobs-devel >= 2.20.0
 BuildRequires:	libtool
-BuildRequires:	nautilus-devel >= 2.19.91
+BuildRequires:	nautilus-devel >= 2.20.0
 BuildRequires:	pkgconfig
+# support for --with-omf in find_lang.sh
+BuildRequires:	rpm-build >= 4.4.9-10
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
@@ -32,9 +34,9 @@ Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
 Requires:	gtk+2 >= 2:2.12.0
-Requires:	libgnomeui >= 2.19.1
+Requires:	libgnomeui >= 2.20.0
 Requires:	liboobs >= 2.20.0
-Requires:	nautilus-libs >= 2.19.91
+Requires:	nautilus-libs >= 2.20.0
 Requires:	shadow-extras
 Requires:	system-tools-backends
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -88,7 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/libnautilus-gst-shares.la
 
-%find_lang %{name} --with-gnome --all-name
+%find_lang %{name} --with-gnome --with-omf --all-name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -115,43 +117,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/*.pc
 %{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
 %{_iconsdir}/hicolor/*/*/*.png
-%dir %{_omf_dest_dir}/%{name}
-%lang(nl) %{_omf_dest_dir}/%{name}/services-admin-nl.omf
-%lang(nl) %{_omf_dest_dir}/%{name}/time-admin-nl.omf
-%dir %{_omf_dest_dir}/network-admin
-%{_omf_dest_dir}/network-admin/network-admin-C.omf
-%lang(ca) %{_omf_dest_dir}/network-admin/network-admin-ca.omf
-%lang(es) %{_omf_dest_dir}/network-admin/network-admin-es.omf
-%lang(fr) %{_omf_dest_dir}/network-admin/network-admin-fr.omf
-%lang(oc) %{_omf_dest_dir}/network-admin/network-admin-oc.omf
-%lang(sv) %{_omf_dest_dir}/network-admin/network-admin-sv.omf
-%dir %{_omf_dest_dir}/services-admin
-%{_omf_dest_dir}/services-admin/services-admin-C.omf
-%lang(ca) %{_omf_dest_dir}/services-admin/services-admin-ca.omf
-%lang(es) %{_omf_dest_dir}/services-admin/services-admin-es.omf
-%lang(fr) %{_omf_dest_dir}/services-admin/services-admin-fr.omf
-%lang(oc) %{_omf_dest_dir}/services-admin/services-admin-oc.omf
-%lang(sv) %{_omf_dest_dir}/services-admin/services-admin-sv.omf
-%dir %{_omf_dest_dir}/shares-admin
-%{_omf_dest_dir}/shares-admin/shares-admin-C.omf
-%lang(ca) %{_omf_dest_dir}/shares-admin/shares-admin-ca.omf
-%lang(es) %{_omf_dest_dir}/shares-admin/shares-admin-es.omf
-%lang(fr) %{_omf_dest_dir}/shares-admin/shares-admin-fr.omf
-%lang(oc) %{_omf_dest_dir}/shares-admin/shares-admin-oc.omf
-%lang(sv) %{_omf_dest_dir}/shares-admin/shares-admin-sv.omf
-%dir %{_omf_dest_dir}/time-admin
-%{_omf_dest_dir}/time-admin/time-admin-C.omf
-%lang(ca) %{_omf_dest_dir}/time-admin/time-admin-ca.omf
-%lang(es) %{_omf_dest_dir}/time-admin/time-admin-es.omf
-%lang(fr) %{_omf_dest_dir}/time-admin/time-admin-fr.omf
-%lang(oc) %{_omf_dest_dir}/time-admin/time-admin-oc.omf
-%lang(ru) %{_omf_dest_dir}/time-admin/time-admin-ru.omf
-%lang(sv) %{_omf_dest_dir}/time-admin/time-admin-sv.omf
-%dir %{_omf_dest_dir}/users-admin
-%{_omf_dest_dir}/users-admin/users-admin-C.omf
-%lang(ca) %{_omf_dest_dir}/users-admin/users-admin-ca.omf
-%lang(es) %{_omf_dest_dir}/users-admin/users-admin-es.omf
-%lang(fr) %{_omf_dest_dir}/users-admin/users-admin-fr.omf
-%lang(oc) %{_omf_dest_dir}/users-admin/users-admin-oc.omf
-%lang(ru) %{_omf_dest_dir}/users-admin/users-admin-ru.omf
-%lang(sv) %{_omf_dest_dir}/users-admin/users-admin-sv.omf
