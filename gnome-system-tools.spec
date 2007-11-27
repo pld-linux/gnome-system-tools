@@ -25,8 +25,7 @@ BuildRequires:	liboobs-devel >= 2.20.0
 BuildRequires:	libtool
 BuildRequires:	nautilus-devel >= 2.20.0
 BuildRequires:	pkgconfig
-# support for --with-omf in find_lang.sh
-BuildRequires:	rpm-build >= 4.4.9-10
+BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
