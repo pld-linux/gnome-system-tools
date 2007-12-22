@@ -32,6 +32,7 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
+Requires:	PolicyKit-gnome
 Requires:	gtk+2 >= 2:2.12.0
 Requires:	libgnomeui >= 2.20.0
 Requires:	liboobs >= 2.20.0
