@@ -11,6 +11,7 @@ Patch0:		%{name}-more-groups.patch
 Patch1:		%{name}-more-services.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.20.0
+BuildRequires:	PolicyKit-devel >- 0.5
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.0.2
