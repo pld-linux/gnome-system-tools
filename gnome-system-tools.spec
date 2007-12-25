@@ -1,28 +1,28 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.21.2.1
+Version:	2.21.3
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.21/%{name}-%{version}.tar.bz2
-# Source0-md5:	82c76d586b01cf7a2fb5002feea150f4
+# Source0-md5:	a35cbe22199e555d48d08e5f6aa9cbaf
 Patch0:		%{name}-more-groups.patch
 Patch1:		%{name}-more-services.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.20.0
-BuildRequires:	PolicyKit-devel >- 0.5
+BuildRequires:	PolicyKit-devel >= 0.5
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	dbus-devel >= 1.0.2
-BuildRequires:	gnome-common >= 2.12.0
-BuildRequires:	gnome-doc-utils >= 0.11.2
+BuildRequires:	dbus-devel >= 1.1.2
+BuildRequires:	gettext-devel
+BuildRequires:	gnome-common >= 2.20.0
+BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gtk+2-devel >= 2:2.12.0
 BuildRequires:	intltool >= 0.36.1
-BuildRequires:	libglade2-devel >= 1:2.6.2
-BuildRequires:	libgnomeui-devel >= 2.20.0
+BuildRequires:	libgnomeui-devel >= 2.20.1
 BuildRequires:	libiw-devel
-BuildRequires:	liboobs-devel >= 2.21.2.1
+BuildRequires:	liboobs-devel >= 2.21.3
 BuildRequires:	libtool
 BuildRequires:	nautilus-devel >= 2.20.0
 BuildRequires:	pkgconfig
@@ -35,11 +35,11 @@ Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
 Requires:	PolicyKit-gnome
 Requires:	gtk+2 >= 2:2.12.0
-Requires:	libgnomeui >= 2.20.0
-Requires:	liboobs >= 2.20.0
+Requires:	libgnomeui >= 2.20.1
+Requires:	liboobs >= 2.21.3
 Requires:	nautilus-libs >= 2.20.0
 Requires:	shadow-extras
-Requires:	system-tools-backends
+Requires:	system-tools-backends >= 2.5.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
