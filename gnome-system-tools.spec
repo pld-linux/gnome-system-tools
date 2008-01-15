@@ -16,7 +16,7 @@ BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.1.2
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 2.15.2
+BuildRequires:	glib2-devel >= 1:2.15.2
 BuildRequires:	gnome-common >= 2.20.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gtk+2-devel >= 2:2.12.0
