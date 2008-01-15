@@ -1,12 +1,12 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.21.3
+Version:	2.21.5.1
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.21/%{name}-%{version}.tar.bz2
-# Source0-md5:	a35cbe22199e555d48d08e5f6aa9cbaf
+# Source0-md5:	1259ab5b98ff2e2d4f0bb51692079d79
 Patch0:		%{name}-more-groups.patch
 Patch1:		%{name}-more-services.patch
 URL:		http://www.gnome.org/projects/gst/
@@ -16,6 +16,7 @@ BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.1.2
 BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel >= 2.15.2
 BuildRequires:	gnome-common >= 2.20.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gtk+2-devel >= 2:2.12.0
@@ -39,7 +40,7 @@ Requires:	libgnomeui >= 2.20.1
 Requires:	liboobs >= 2.21.3
 Requires:	nautilus-libs >= 2.20.0
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 2.5.4
+Requires:	system-tools-backends >= 2.5.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
