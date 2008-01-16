@@ -25,7 +25,7 @@ BuildRequires:	libgnomeui-devel >= 2.20.1
 BuildRequires:	libiw-devel
 BuildRequires:	liboobs-devel >= 2.21.3
 BuildRequires:	libtool
-BuildRequires:	nautilus-devel >= 2.20.0
+BuildRequires:	nautilus-devel >= 2.21.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
@@ -38,7 +38,7 @@ Requires:	PolicyKit-gnome
 Requires:	gtk+2 >= 2:2.12.0
 Requires:	libgnomeui >= 2.20.1
 Requires:	liboobs >= 2.21.3
-Requires:	nautilus-libs >= 2.20.0
+Requires:	nautilus-libs >= 2.21.5
 Requires:	shadow-extras
 Requires:	system-tools-backends >= 2.5.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -90,7 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/libnautilus-gst-shares.la
+rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.la
 
 %find_lang %{name} --with-gnome --with-omf --all-name
 
@@ -115,7 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
-%attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/lib*.so
+%attr(755,root,root) %{_libdir}/nautilus/extensions-2.0/lib*.so
 %{_pkgconfigdir}/*.pc
 %{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
 %{_iconsdir}/hicolor/*/*/*.png
