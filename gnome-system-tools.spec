@@ -1,31 +1,31 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.21.5.1
+Version:	2.21.91
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.21/%{name}-%{version}.tar.bz2
-# Source0-md5:	1259ab5b98ff2e2d4f0bb51692079d79
+# Source0-md5:	981914816d38c1646c808cde2ccc0631
 Patch0:		%{name}-more-groups.patch
 Patch1:		%{name}-more-services.patch
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	GConf2-devel >= 2.20.0
+BuildRequires:	GConf2-devel >= 2.21.90
 BuildRequires:	PolicyKit-devel >= 0.5
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.1.2
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.15.2
+BuildRequires:	glib2-devel >= 1:2.15.5
 BuildRequires:	gnome-common >= 2.20.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
-BuildRequires:	gtk+2-devel >= 2:2.12.0
-BuildRequires:	intltool >= 0.36.1
-BuildRequires:	libgnomeui-devel >= 2.20.1
+BuildRequires:	gtk+2-devel >= 2:2.12.5
+BuildRequires:	intltool >= 0.37.0
+BuildRequires:	libgnomeui-devel >= 2.21.91
 BuildRequires:	libiw-devel
-BuildRequires:	liboobs-devel >= 2.21.3
+BuildRequires:	liboobs-devel >= 2.21.91
 BuildRequires:	libtool
-BuildRequires:	nautilus-devel >= 2.21.5
+BuildRequires:	nautilus-devel >= 2.21.90
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
@@ -35,12 +35,12 @@ Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
 Requires:	PolicyKit-gnome
-Requires:	gtk+2 >= 2:2.12.0
-Requires:	libgnomeui >= 2.20.1
-Requires:	liboobs >= 2.21.3
-Requires:	nautilus-libs >= 2.21.5
+Requires:	gtk+2 >= 2:2.12.5
+Requires:	libgnomeui >= 2.21.91
+Requires:	liboobs >= 2.21.91
+Requires:	nautilus-libs >= 2.21.90
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 2.5.6
+Requires:	system-tools-backends >= 2.5.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -64,12 +64,14 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch1 -p1
 
 %build
+mkdir m4
+%{__gnome_doc_common}
 %{__intltoolize}
 %{__glib_gettextize}
 %{__libtoolize}
-%{__gnome_doc_common}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	--disable-scrollkeeper \
@@ -112,10 +114,18 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README AUTHORS HACKING NEWS ChangeLog
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/network-admin
+%attr(755,root,root) %{_bindir}/services-admin
+%attr(755,root,root) %{_bindir}/shares-admin
+%attr(755,root,root) %{_bindir}/time-admin
+%attr(755,root,root) %{_bindir}/users-admin
 %{_datadir}/%{name}
-%{_desktopdir}/*.desktop
-%attr(755,root,root) %{_libdir}/nautilus/extensions-2.0/lib*.so
-%{_pkgconfigdir}/*.pc
+%{_desktopdir}/network.desktop
+%{_desktopdir}/services.desktop
+%{_desktopdir}/shares.desktop
+%{_desktopdir}/time.desktop
+%{_desktopdir}/users.desktop
+%attr(755,root,root) %{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.so
+%{_pkgconfigdir}/gnome-system-tools.pc
 %{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
 %{_iconsdir}/hicolor/*/*/*.png
