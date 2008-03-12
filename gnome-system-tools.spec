@@ -1,31 +1,31 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.21.91
+Version:	2.22.0
 Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.21/%{name}-%{version}.tar.bz2
-# Source0-md5:	981914816d38c1646c808cde2ccc0631
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.22/%{name}-%{version}.tar.bz2
+# Source0-md5:	6559bb97fc75bc28b559dc530571d527
 Patch0:		%{name}-more-groups.patch
 Patch1:		%{name}-more-services.patch
 URL:		http://www.gnome.org/projects/gst/
-BuildRequires:	GConf2-devel >= 2.21.90
+BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	PolicyKit-devel >= 0.5
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.1.2
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.15.5
+BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gnome-common >= 2.20.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gtk+2-devel >= 2:2.12.5
 BuildRequires:	intltool >= 0.37.0
-BuildRequires:	libgnomeui-devel >= 2.21.91
+BuildRequires:	libgnomeui-devel >= 2.22.0
 BuildRequires:	libiw-devel
-BuildRequires:	liboobs-devel >= 2.21.91
+BuildRequires:	liboobs-devel >= 2.22.0
 BuildRequires:	libtool
-BuildRequires:	nautilus-devel >= 2.21.90
+BuildRequires:	nautilus-devel >= 2.22.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
@@ -36,9 +36,9 @@ Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
 Requires:	PolicyKit-gnome
 Requires:	gtk+2 >= 2:2.12.5
-Requires:	libgnomeui >= 2.21.91
-Requires:	liboobs >= 2.21.91
-Requires:	nautilus-libs >= 2.21.90
+Requires:	libgnomeui >= 2.22.0
+Requires:	liboobs >= 2.22.0
+Requires:	nautilus-libs >= 2.22.0
 Requires:	shadow-extras
 Requires:	system-tools-backends >= 2.5.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -64,7 +64,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch1 -p1
 
 %build
-mkdir m4
 %{__gnome_doc_common}
 %{__intltoolize}
 %{__glib_gettextize}
@@ -129,3 +128,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/gnome-system-tools.pc
 %{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
 %{_iconsdir}/hicolor/*/*/*.png
+%{_iconsdir}/hicolor/*/apps/*.svg
