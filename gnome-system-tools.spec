@@ -7,7 +7,9 @@ License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.22/%{name}-%{version}.tar.bz2
 # Source0-md5:	6559bb97fc75bc28b559dc530571d527
+# http://bugzilla.gnome.org/show_bug.cgi?id=552122
 Patch0:		%{name}-more-groups.patch
+# http://bugzilla.gnome.org/show_bug.cgi?id=552122
 Patch1:		%{name}-more-services.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.22.0
