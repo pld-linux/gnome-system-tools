@@ -2,7 +2,7 @@ Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.22.0
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.22/%{name}-%{version}.tar.bz2
@@ -67,14 +67,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch1 -p1
 
 %build
-%{__gnome_doc_common}
-%{__intltoolize}
-%{__glib_gettextize}
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
 %configure \
 	--disable-scrollkeeper \
 	--disable-schemas-install \
