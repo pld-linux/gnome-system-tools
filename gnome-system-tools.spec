@@ -2,7 +2,7 @@ Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.22.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.22/%{name}-%{version}.tar.bz2
@@ -41,6 +41,7 @@ Requires:	gtk+2 >= 2:2.12.5
 Requires:	libgnomeui >= 2.22.0
 Requires:	liboobs >= 2.22.0
 Requires:	nautilus-libs >= 2.22.0
+Requires:	setup >= 2.6.1-1
 Requires:	shadow-extras
 Requires:	system-tools-backends >= 2.5.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
