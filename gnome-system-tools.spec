@@ -1,12 +1,12 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.22.2
+Version:	2.27.1
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.22/%{name}-%{version}.tar.bz2
-# Source0-md5:	c2c9a2570dd01a38b46a6adb91a2cb2f
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.27/%{name}-%{version}.tar.bz2
+# Source0-md5:	1c44b84966fda9eb7a09bfdd27d191dd
 # http://bugzilla.gnome.org/show_bug.cgi?id=552122
 Patch0:		%{name}-more-groups.patch
 # http://bugzilla.gnome.org/show_bug.cgi?id=552122
@@ -64,12 +64,13 @@ warunkach Powszechnej Licencji Publicznej GNU.
 	--disable-scrollkeeper \
 	--disable-schemas-install \
 	--disable-static \
-	--enable-network \
-	--enable-services \
-	--enable-time \
-	--enable-users \
 	--enable-nautilus \
-	--enable-shares
+	--enable-network \
+	--enable-polkit \
+	--enable-services \
+	--enable-shares \
+	--enable-time \
+	--enable-users
 %{__make}
 
 %install
