@@ -1,19 +1,14 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.27.1
+Version:	2.27.3
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.27/%{name}-%{version}.tar.bz2
-# Source0-md5:	1c44b84966fda9eb7a09bfdd27d191dd
-# http://bugzilla.gnome.org/show_bug.cgi?id=552122
-Patch0:		%{name}-more-groups.patch
-# http://bugzilla.gnome.org/show_bug.cgi?id=552122
-Patch1:		%{name}-more-services.patch
+# Source0-md5:	3c2cf454a947c8776e224cfed9d969de
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.22.0
-BuildRequires:	PolicyKit-devel >= 0.5
 BuildRequires:	dbus-devel >= 1.1.2
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
@@ -23,6 +18,7 @@ BuildRequires:	libiw-devel
 BuildRequires:	liboobs-devel >= 2.22.0
 BuildRequires:	nautilus-devel >= 2.22.0
 BuildRequires:	pkgconfig
+BuildRequires:	polkit-gnome-devel >= 0.94
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
@@ -30,13 +26,13 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
-Requires:	PolicyKit-gnome
 Requires:	gtk+2 >= 2:2.12.5
 Requires:	liboobs >= 2.22.0
 Requires:	nautilus-libs >= 2.22.0
+Requires:	polkit-gnome >= 0.94
 Requires:	setup >= 2.6.1-1
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 2.5.8
+Requires:	system-tools-backends >= 2.8.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,8 +52,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %configure \
