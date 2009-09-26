@@ -1,19 +1,14 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.22.2
+Version:	2.28.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.22/%{name}-%{version}.tar.bz2
-# Source0-md5:	c2c9a2570dd01a38b46a6adb91a2cb2f
-# http://bugzilla.gnome.org/show_bug.cgi?id=552122
-Patch0:		%{name}-more-groups.patch
-# http://bugzilla.gnome.org/show_bug.cgi?id=552122
-Patch1:		%{name}-more-services.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.28/%{name}-%{version}.tar.bz2
+# Source0-md5:	001d3b4b2bcbf7bc0ef428b324365215
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.22.0
-BuildRequires:	PolicyKit-devel >= 0.5
 BuildRequires:	dbus-devel >= 1.1.2
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
@@ -23,6 +18,7 @@ BuildRequires:	libiw-devel
 BuildRequires:	liboobs-devel >= 2.22.0
 BuildRequires:	nautilus-devel >= 2.22.0
 BuildRequires:	pkgconfig
+BuildRequires:	polkit-gnome-devel >= 0.94
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
@@ -30,13 +26,13 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
-Requires:	PolicyKit-gnome
 Requires:	gtk+2 >= 2:2.12.5
 Requires:	liboobs >= 2.22.0
 Requires:	nautilus-libs >= 2.22.0
+Requires:	polkit-gnome >= 0.94
 Requires:	setup >= 2.6.1-1
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 2.5.8
+Requires:	system-tools-backends >= 2.8.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,20 +52,19 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %configure \
 	--disable-scrollkeeper \
 	--disable-schemas-install \
 	--disable-static \
-	--enable-network \
-	--enable-services \
-	--enable-time \
-	--enable-users \
 	--enable-nautilus \
-	--enable-shares
+	--enable-network \
+	--enable-polkit \
+	--enable-services \
+	--enable-shares \
+	--enable-time \
+	--enable-users
 %{__make}
 
 %install
