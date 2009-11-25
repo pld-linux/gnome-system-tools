@@ -14,8 +14,10 @@ BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gtk+2-devel >= 2:2.12.5
+BuildRequires:	intltool
 BuildRequires:	libiw-devel
 BuildRequires:	liboobs-devel >= 2.22.0
+BuildRequires:	libxml2-progs
 BuildRequires:	nautilus-devel >= 2.22.0
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-gnome-devel >= 0.94
