@@ -1,19 +1,19 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.28.0
-Release:	3
+Version:	2.28.2
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.28/%{name}-%{version}.tar.bz2
-# Source0-md5:	001d3b4b2bcbf7bc0ef428b324365215
+# Source0-md5:	6947cd83c8f83af54e76a36ab3bb6cf0
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	dbus-devel >= 1.1.2
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
-BuildRequires:	gtk+2-devel >= 2:2.12.5
+BuildRequires:	gtk+2-devel >= 2:2.16.0
 BuildRequires:	intltool
 BuildRequires:	libiw-devel
 BuildRequires:	liboobs-devel >= 2.22.0
@@ -29,7 +29,7 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.12.5
+Requires:	gtk+2 >= 2:2.16.0
 Requires:	liboobs >= 2.22.0
 Requires:	nautilus-libs >= 2.22.0
 Requires:	polkit-gnome >= 0.94
