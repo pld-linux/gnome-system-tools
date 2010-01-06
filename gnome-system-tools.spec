@@ -8,8 +8,10 @@ Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.28/%{name}-%{version}.tar.bz2
 # Source0-md5:	6947cd83c8f83af54e76a36ab3bb6cf0
 URL:		http://www.gnome.org/projects/gst/
+BuildRequires:	GConf2
 BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	dbus-devel >= 1.1.2
+BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
