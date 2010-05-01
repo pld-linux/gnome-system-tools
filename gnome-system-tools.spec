@@ -1,12 +1,12 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.28.2
+Version:	2.30.1
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.28/%{name}-%{version}.tar.bz2
-# Source0-md5:	6947cd83c8f83af54e76a36ab3bb6cf0
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.30/%{name}-%{version}.tar.bz2
+# Source0-md5:	d752a0bc2e075ba6d99fbf5d609051cc
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -18,26 +18,27 @@ BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gtk+2-devel >= 2:2.16.0
 BuildRequires:	intltool
 BuildRequires:	libiw-devel
-BuildRequires:	liboobs-devel >= 2.22.0
+BuildRequires:	liboobs-devel >= 2.30.0
 BuildRequires:	libxml2-progs
 BuildRequires:	nautilus-devel >= 2.22.0
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-gnome-devel >= 0.94
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	system-tools-backends >= 2.8.0
+BuildRequires:	sed >= 4.0
+BuildRequires:	system-tools-backends >= 2.10.0
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
 Requires:	gtk+2 >= 2:2.16.0
-Requires:	liboobs >= 2.22.0
+Requires:	liboobs >= 2.30.0
 Requires:	nautilus-libs >= 2.22.0
 Requires:	polkit-gnome >= 0.94
 Requires:	setup >= 2.6.1-1
 Requires:	shadow-extras
-Requires:	system-tools-backends >= 2.8.0
+Requires:	system-tools-backends >= 2.10.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -58,14 +59,18 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 
+%{__sed} -i -e 's/en@shaw//' po/LINGUAS
+rm -f po/en@shaw.po
+
 %build
 %configure \
 	--disable-scrollkeeper \
 	--disable-schemas-install \
+	--disable-silent-rules \
 	--disable-static \
 	--enable-nautilus \
 	--enable-network \
-	--enable-polkit \
+	--enable-polkit-gtk \
 	--enable-services \
 	--enable-shares \
 	--enable-time \
@@ -113,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/users.desktop
 %attr(755,root,root) %{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.so
 %{_pkgconfigdir}/gnome-system-tools.pc
+%dir %{_sysconfdir}/gnome-system-tools
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gnome-system-tools/user-profiles.conf
 %{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
