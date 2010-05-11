@@ -2,11 +2,12 @@ Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.30.1
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.30/%{name}-%{version}.tar.bz2
 # Source0-md5:	d752a0bc2e075ba6d99fbf5d609051cc
+Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -58,6 +59,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %{__sed} -i -e 's/en@shaw//' po/LINGUAS
 rm -f po/en@shaw.po
