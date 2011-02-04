@@ -2,7 +2,7 @@ Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	2.30.1
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.30/%{name}-%{version}.tar.bz2
@@ -28,7 +28,7 @@ BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sed >= 4.0
 BuildRequires:	system-tools-backends >= 2.10.0
-Requires(post,postun):	gtk+2
+Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
