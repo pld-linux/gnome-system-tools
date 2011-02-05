@@ -1,0 +1,24 @@
+--- gnome-system-tools-2.32.0/configure.in.wiget	2011-02-05 22:17:45.830948540 +0100
++++ gnome-system-tools-2.32.0/configure.in	2011-02-05 22:19:44.130016049 +0100
+@@ -234,7 +234,7 @@ fi
+ dnl GST_DEPRECATED_FLAGS="-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED"
+ GST_DEPRECATED_FLAGS=""
+ 
+-GST_LIBS="$GST_DEPENDS_LIBS $POLKIT_GTK_LIBS"
++GST_LIBS="$POLKIT_GTK_LIBS $GST_DEPENDS_LIBS"
+ GST_CFLAGS="$GST_DEPENDS_CFLAGS $POLKIT_GTK_CFLAGS $GST_DEPRECATED_FLAGS"
+ 
+ GST_TOOL_LIBS="\$(top_builddir)/src/common/libsetuptool.a $GST_LIBS"
+--- gnome-system-tools-2.32.0/src/time/Makefile.am.wiget	2011-02-05 22:45:01.509213693 +0100
++++ gnome-system-tools-2.32.0/src/time/Makefile.am	2011-02-05 22:46:05.221078393 +0100
+@@ -15,8 +15,8 @@ INCLUDES += $(GST_TOOL_CFLAGS) $(DBUS_CF
+ CLEANFILES = $(GST_TOOL_CLEANFILES)
+ EXTRA_DIST = $(GST_TOOL_EXTRA_DIST)
+ 
+-time_admin_LDADD = $(GST_TOOL_LIBS) $(DBUS_LIBS) ./e-map/libemap.a
+-time_admin_DEPENDENCIES = $(GST_TOOL_DEPENDENCIES) ./e-map/libemap.a
++time_admin_LDADD = ./e-map/libemap.a $(GST_TOOL_LIBS) $(DBUS_LIBS)
++time_admin_DEPENDENCIES = ./e-map/libemap.a $(GST_TOOL_DEPENDENCIES)
+ time_admin_SOURCES = \
+ 	time-tool.c	time-tool.h \
+ 	tz.c		tz.h \

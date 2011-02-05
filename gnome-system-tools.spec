@@ -1,16 +1,19 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.30.1
-Release:	3
+Version:	2.32.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.30/%{name}-%{version}.tar.bz2
-# Source0-md5:	d752a0bc2e075ba6d99fbf5d609051cc
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.32/%{name}-%{version}.tar.bz2
+# Source0-md5:	93e3d21b041c771d4ac12307e4ef3392
 Patch0:		%{name}-desktop.patch
+Patch1:		asneeded.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2
 BuildRequires:	GConf2-devel >= 2.22.0
+BuildRequires:	autoconf >= 2.59-9
+BuildRequires:	automake >= 1:1.9
 BuildRequires:	dbus-devel >= 1.1.2
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
@@ -19,7 +22,7 @@ BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gtk+2-devel >= 2:2.16.0
 BuildRequires:	intltool
 BuildRequires:	libiw-devel
-BuildRequires:	liboobs-devel >= 2.30.0
+BuildRequires:	liboobs-devel >= 2.32.0
 BuildRequires:	libxml2-progs
 BuildRequires:	nautilus-devel >= 2.22.0
 BuildRequires:	pkgconfig
@@ -60,11 +63,19 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %{__sed} -i -e 's/en@shaw//' po/LINGUAS
-rm -f po/en@shaw.po
+%{__rm} po/en@shaw.po
 
 %build
+%{__glib_gettextize}
+%{__intltoolize}
+%{__libtoolize}
+%{__aclocal}
+%{__autoheader}
+%{__automake}
+%{__autoconf}
 %configure \
 	--disable-scrollkeeper \
 	--disable-schemas-install \
@@ -93,14 +104,12 @@ rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.l
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%gconf_schema_install gnome-system-tools.schemas
+%glib_compile_schemas
 %scrollkeeper_update_post
 %update_icon_cache hicolor
 
-%preun
-%gconf_schema_uninstall gnome-system-tools.schemas
-
 %postun
+%glib_compile_schemas
 %scrollkeeper_update_postun
 %update_icon_cache hicolor
 
@@ -122,6 +131,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/gnome-system-tools.pc
 %dir %{_sysconfdir}/gnome-system-tools
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gnome-system-tools/user-profiles.conf
-%{_sysconfdir}/gconf/schemas/gnome-system-tools.schemas
+%{_datadir}/glib-2.0/schemas/org.gnome.system-tools.gschema.xml
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
