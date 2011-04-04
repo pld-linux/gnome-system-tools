@@ -29,7 +29,6 @@ BuildRequires:	pkgconfig
 BuildRequires:	polkit-gnome-devel >= 0.94
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	sed >= 4.0
 BuildRequires:	system-tools-backends >= 2.10.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
@@ -65,9 +64,6 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch0 -p1
 %patch1 -p1
 
-%{__sed} -i -e 's/en@shaw//' po/LINGUAS
-%{__rm} po/en@shaw.po
-
 %build
 %{__glib_gettextize}
 %{__intltoolize}
@@ -96,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -r $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.la
 
 %find_lang %{name} --with-gnome --with-omf --all-name
 
@@ -121,16 +117,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/shares-admin
 %attr(755,root,root) %{_bindir}/time-admin
 %attr(755,root,root) %{_bindir}/users-admin
+%attr(755,root,root) %{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.so
 %{_datadir}/%{name}
+%{_datadir}/glib-2.0/schemas/org.gnome.system-tools.gschema.xml
+%dir %{_sysconfdir}/gnome-system-tools
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gnome-system-tools/user-profiles.conf
 %{_desktopdir}/network.desktop
 %{_desktopdir}/services.desktop
 %{_desktopdir}/shares.desktop
 %{_desktopdir}/time.desktop
 %{_desktopdir}/users.desktop
-%attr(755,root,root) %{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.so
-%{_pkgconfigdir}/gnome-system-tools.pc
-%dir %{_sysconfdir}/gnome-system-tools
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gnome-system-tools/user-profiles.conf
-%{_datadir}/glib-2.0/schemas/org.gnome.system-tools.gschema.xml
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
+%{_pkgconfigdir}/gnome-system-tools.pc
