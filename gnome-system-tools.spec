@@ -1,14 +1,13 @@
 Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
-Version:	2.32.0
+Version:	3.0.0
 Release:	1
-License:	GPL v2
+License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/2.32/%{name}-%{version}.tar.bz2
-# Source0-md5:	93e3d21b041c771d4ac12307e4ef3392
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/3.0/%{name}-%{version}.tar.bz2
+# Source0-md5:	5dc48086cec964d146c9c446a54a8d39
 Patch0:		%{name}-desktop.patch
-Patch1:		asneeded.patch
 URL:		http://www.gnome.org/projects/gst/
 BuildRequires:	GConf2
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -19,12 +18,12 @@ BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
-BuildRequires:	gtk+2-devel >= 2:2.16.0
+BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	intltool
 BuildRequires:	libiw-devel
-BuildRequires:	liboobs-devel >= 2.32.0
+BuildRequires:	liboobs-devel >= 3.0.0
 BuildRequires:	libxml2-progs
-BuildRequires:	nautilus-devel >= 2.22.0
+BuildRequires:	nautilus-devel >= 3.0.0
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-gnome-devel >= 0.94
 BuildRequires:	rpmbuild(find_lang) >= 1.23
@@ -35,9 +34,9 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	/etc/pld-release
-Requires:	gtk+2 >= 2:2.16.0
+Requires:	gtk+3 >= 3.0.0
 Requires:	liboobs >= 2.30.0
-Requires:	nautilus-libs >= 2.22.0
+Requires:	nautilus-libs >= 3.0.0
 Requires:	polkit-gnome >= 0.94
 Requires:	setup >= 2.6.1-1
 Requires:	shadow-extras
@@ -62,9 +61,9 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
+mkdir m4
 %{__glib_gettextize}
 %{__intltoolize}
 %{__libtoolize}
@@ -92,7 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-3.0/libnautilus-gst-shares.la
 
 %find_lang %{name} --with-gnome --with-omf --all-name
 
@@ -117,7 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/shares-admin
 %attr(755,root,root) %{_bindir}/time-admin
 %attr(755,root,root) %{_bindir}/users-admin
-%attr(755,root,root) %{_libdir}/nautilus/extensions-2.0/libnautilus-gst-shares.so
+%attr(755,root,root) %{_libdir}/nautilus/extensions-3.0/libnautilus-gst-shares.so
 %{_datadir}/%{name}
 %{_datadir}/glib-2.0/schemas/org.gnome.system-tools.gschema.xml
 %dir %{_sysconfdir}/gnome-system-tools
