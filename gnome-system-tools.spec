@@ -2,7 +2,7 @@ Summary:	GNOME System Tools
 Summary(pl.UTF-8):	GNOME System Tools - narzędzia systemowe GNOME
 Name:		gnome-system-tools
 Version:	3.0.0
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/3.0/%{name}-%{version}.tar.bz2
@@ -25,10 +25,10 @@ BuildRequires:	liboobs-devel >= 3.0.0
 BuildRequires:	libxml2-progs
 BuildRequires:	nautilus-devel >= 3.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	polkit-gnome-devel >= 0.94
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	system-tools-backends >= 2.10.0
+BuildRequires:	system-tools-backends-devel >= 2.10.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
