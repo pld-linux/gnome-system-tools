@@ -5,10 +5,10 @@ Version:	3.0.0
 Release:	2
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-system-tools/3.0/%{name}-%{version}.tar.bz2
+Source0:	https://download.gnome.org/sources/gnome-system-tools/3.0/%{name}-%{version}.tar.bz2
 # Source0-md5:	5dc48086cec964d146c9c446a54a8d39
 Patch0:		%{name}-desktop.patch
-URL:		http://www.gnome.org/projects/gst/
+URL:		https://gitlab.gnome.org/Archive/gnome-system-tools
 BuildRequires:	GConf2
 BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	autoconf >= 2.59-9
@@ -63,7 +63,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %patch0 -p1
 
 %build
-mkdir m4
+install -d m4
 %{__glib_gettextize}
 %{__intltoolize}
 %{__libtoolize}
