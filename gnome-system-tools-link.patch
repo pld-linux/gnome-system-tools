@@ -1,0 +1,31 @@
+--- gnome-system-tools-3.0.0/configure.in.orig	2011-04-03 19:32:51.000000000 +0200
++++ gnome-system-tools-3.0.0/configure.in	2022-01-09 16:54:58.413641820 +0100
+@@ -89,6 +89,8 @@ PKG_CHECK_MODULES(DBUS,[
+ 		  dbus-1 >= $DBUS_REQUIRED
+ 		  ])
+ 
++PKG_CHECK_MODULES(GTHREAD, [gthread-2.0 >= $GLIB_REQUIRED])
++
+ DBUS_CFLAGS="$DBUS_CFLAGS -DDBUS_API_SUBJECT_TO_CHANGE"
+ AC_SUBST(DBUS_LIBS)
+ AC_SUBST(DBUS_CFLAGS)
+@@ -232,7 +234,7 @@ GST_DEPRECATED_FLAGS=""
+ GST_LIBS="$GST_DEPENDS_LIBS $POLKIT_LIBS"
+ GST_CFLAGS="$GST_DEPENDS_CFLAGS $POLKIT_CFLAGS $GST_DEPRECATED_FLAGS"
+ 
+-GST_TOOL_LIBS="\$(top_builddir)/src/common/libsetuptool.a $GST_LIBS"
++GST_TOOL_LIBS="\$(top_builddir)/src/common/libsetuptool.a $GST_LIBS $GTHREAD_LIBS"
+ GST_TOOL_CFLAGS="-I\$(top_srcdir)/src/common $GST_CFLAGS"
+ 
+ GST_TOOL_CLEANFILES="\$(desktop) \$(desktop).in"
+--- gnome-system-tools-3.0.0/src/time/Makefile.am.orig	2011-01-06 12:17:34.000000000 +0100
++++ gnome-system-tools-3.0.0/src/time/Makefile.am	2022-01-09 16:57:40.069432723 +0100
+@@ -15,7 +15,7 @@ INCLUDES += $(GST_TOOL_CFLAGS) $(DBUS_CF
+ CLEANFILES = $(GST_TOOL_CLEANFILES)
+ EXTRA_DIST = $(GST_TOOL_EXTRA_DIST)
+ 
+-time_admin_LDADD = ./e-map/libemap.a $(GST_TOOL_LIBS) $(DBUS_LIBS)
++time_admin_LDADD = ./e-map/libemap.a $(GST_TOOL_LIBS) $(DBUS_LIBS) -lm
+ time_admin_DEPENDENCIES = ./e-map/libemap.a $(GST_TOOL_DEPENDENCIES)
+ time_admin_SOURCES = \
+ 	time-tool.c	time-tool.h \

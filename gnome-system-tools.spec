@@ -8,9 +8,8 @@ Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/gnome-system-tools/3.0/%{name}-%{version}.tar.bz2
 # Source0-md5:	5dc48086cec964d146c9c446a54a8d39
 Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-link.patch
 URL:		https://gitlab.gnome.org/Archive/gnome-system-tools
-BuildRequires:	GConf2
-BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	dbus-devel >= 1.1.2
@@ -27,7 +26,6 @@ BuildRequires:	nautilus-devel >= 3.0.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	system-tools-backends >= 2.10.0
 BuildRequires:	system-tools-backends-devel >= 2.10.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
@@ -61,6 +59,7 @@ warunkach Powszechnej Licencji Publicznej GNU.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 install -d m4
@@ -126,6 +125,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/shares.desktop
 %{_desktopdir}/time.desktop
 %{_desktopdir}/users.desktop
-%{_iconsdir}/hicolor/*/*/*.png
-%{_iconsdir}/hicolor/*/apps/*.svg
+%{_iconsdir}/hicolor/*x*/apps/time-admin.png
+%{_iconsdir}/hicolor/48x48/devices/irda.png
+%{_iconsdir}/hicolor/48x48/devices/plip.png
+%{_iconsdir}/hicolor/scalable/apps/time-admin.svg
 %{_pkgconfigdir}/gnome-system-tools.pc
